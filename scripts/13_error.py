@@ -38,16 +38,16 @@ def main():
             d[m] = np.load(ROOT / f"data/interim/preds/{m}/{v}.npy")
         rows.append(d.assign(vid=v))
     D = pd.concat(rows)
-    D = D[D.gt >= 0]
+    D = D[D["gt"] >= 0]
     near_x = (D.cx < 8) | (D.cx > side - 8)
     near_y = (D.cy < 8) | (D.cy > side - 8)
     D["zone"] = np.where(near_x & near_y, "corner", np.where(near_x | near_y, "side", "centre"))
-    out = {"confusion": {m: confusion(D.gt.to_numpy(), D[m].to_numpy()).tolist() for m in METHODS},
+    out = {"confusion": {m: confusion(D["gt"].to_numpy(), D[m].to_numpy()).tolist() for m in METHODS},
            "su_confusion": {}}
-    su = D[D.gt.isin([1, 2])]
+    su = D[D["gt"].isin([1, 2])]
     for m in METHODS:
         s = su[su[m].isin([1, 2])]
-        err = s[m] != s.gt
+        err = s[m] != s["gt"]
         r = {}
         for col in ("wall_dist", "head_wall_dist"):
             b = pd.cut(s[col], BINS, labels=BIN_NAMES, right=False)

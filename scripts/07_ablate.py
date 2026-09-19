@@ -29,16 +29,20 @@ def save(name, res, extra=None, **kw):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("which", choices=["windows", "source", "sensitivity"])
+    ap.add_argument("--force", action="store_true")
     a = ap.parse_args()
     vids = [f"OFT_{i}" for i in CFG["data"]["eth"]["ids"]]
     log = lambda s: print(s, flush=True)  # noqa: E731
     if a.which == "windows":
-        d = Dataset(vids)
-        for k in CFG["evaluation"]["ablations"]["windows_single"]:
+        todo = [k for k in CFG["evaluation"]["ablations"]["windows_single"]
+                if a.force or not (OUT / f"rf_window_{k}.json").exists()]
+        for k in todo:
+            d = Dataset(vids)          # fresh cache per config (the shared cache grew unbounded)
             w = [] if k == 0 else [k]
             print(f"== rf windows {w}", flush=True)
             res, _ = lovo("rf", d, CFG, windows=w, log=log)
             save(f"rf_window_{k}", res, windows=w)
+            del d
     elif a.which == "source":
         d = Dataset(vids)
         for src in ("silhouette_only", "dlc_reference"):
