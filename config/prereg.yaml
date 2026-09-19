@@ -11,6 +11,7 @@ data:
     labels_repo: ETHZ-INS/DLCAnalyzer
     labels_commit: d6f9532d191e388a32bef2063f7fd4067946dcec
     labels_path: data/OFT/Labels/AllLabDataOFT_final.csv
+    dlc_outputs_commit: 78cf2233706dda43d6fd7aa12a0114a8743625aa
     arena_side_cm: 42.0          # DLCAnalyzer README: tl/tr/br/bl span 42 x 42 cm
     corners: dlc_median          # median of DLC tl,tr,br,bl with likelihood > 0.95
     corner_likelihood_min: 0.95

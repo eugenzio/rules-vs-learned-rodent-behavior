@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data" / "raw"
 DLC_SHA = "d6f9532d191e388a32bef2063f7fd4067946dcec"  # only commit touching the label file
+DLC_OUT_SHA = "78cf2233706dda43d6fd7aa12a0114a8743625aa"  # only commit touching data/OFT/Output_DLC
 ETH_IDS = [5, 6, 11, 12, 14, 15, 16, 23, 24, 38, 39, 41, 43, 44, 49, 50, 51, 52, 54, 58]
 STOCKHOLM_FILES = [
     "batch2_videos.rar", "batch2_tracking.rar",
@@ -50,7 +51,7 @@ def zenodo_files(record):
 
 
 def main():
-    manifest = {"dlcanalyzer_commit": DLC_SHA, "files": {}}
+    manifest = {"dlcanalyzer_labels_commit": DLC_SHA, "dlcanalyzer_dlc_commit": DLC_OUT_SHA, "files": {}}
     # --- DLCAnalyzer labels (pinned) ---
     lab_url = f"https://raw.githubusercontent.com/ETHZ-INS/DLCAnalyzer/{DLC_SHA}/data/OFT/Labels/AllLabDataOFT_final.csv"
     lab = RAW / "labels" / "AllLabDataOFT_final.csv"
@@ -77,7 +78,7 @@ def main():
         print(name, status, flush=True)
     # --- DLC CSVs for the 20 labelled videos (pinned commit) ---
     for oid, fn in sorted(id2dlc.items()):
-        url = f"https://raw.githubusercontent.com/ETHZ-INS/DLCAnalyzer/{DLC_SHA}/data/OFT/Output_DLC/{fn}"
+        url = f"https://raw.githubusercontent.com/ETHZ-INS/DLCAnalyzer/{DLC_OUT_SHA}/data/OFT/Output_DLC/{fn}"
         dest = RAW / "eth_dlc" / fn
         if not dest.exists():
             fetch(url, dest)

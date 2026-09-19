@@ -11,3 +11,4 @@ paper/*.bbl
 paper/*.blg
 paper/*.out
 .DS_Store
+results/qc/

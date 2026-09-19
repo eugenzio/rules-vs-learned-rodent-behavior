@@ -1,0 +1,252 @@
+{
+ "dlcanalyzer_labels_commit": "d6f9532d191e388a32bef2063f7fd4067946dcec",
+ "dlcanalyzer_dlc_commit": "78cf2233706dda43d6fd7aa12a0114a8743625aa",
+ "files": {
+  "data/raw/labels/AllLabDataOFT_final.csv": {
+   "sha256": "2a690c586f00af4574be5555e63ff66698a3149ef8c70e050876f138e7fd5fd3",
+   "url": "https://raw.githubusercontent.com/ETHZ-INS/DLCAnalyzer/d6f9532d191e388a32bef2063f7fd4067946dcec/data/OFT/Labels/AllLabDataOFT_final.csv"
+  },
+  "data/raw/eth_videos/OFT_5.mp4": {
+   "md5": "622a2a8f39001bddfc02690b4f17f354",
+   "size": 25799279,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_6.mp4": {
+   "md5": "5f887b9ea478c2d90c78cf32c55800f4",
+   "size": 25214283,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_11.mp4": {
+   "md5": "cefa2b4b79290e7e0d8968bbdd31ef54",
+   "size": 24917149,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_12.mp4": {
+   "md5": "7d3f2cc662eece1ad1e3d374c6c9d4a8",
+   "size": 25433672,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_14.mp4": {
+   "md5": "b2f44a6af593e0b26cd5accbe8e2d2f0",
+   "size": 26188622,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_15.mp4": {
+   "md5": "602e35b25662faf9038ede64b591f5c1",
+   "size": 25181458,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_16.mp4": {
+   "md5": "8e6d99fa1dfba1c660b2bbccc6b91f4d",
+   "size": 27388290,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_23.mp4": {
+   "md5": "fbdfe760a8528eb76dec331ed32bbd41",
+   "size": 22285664,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_24.mp4": {
+   "md5": "a20298585e7ef46fd2f4b97019b9546b",
+   "size": 27075663,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_38.mp4": {
+   "md5": "395d6b640ea5dda412175c7b4a9d422d",
+   "size": 24920912,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_39.mp4": {
+   "md5": "10020247a7df86af91065d6a0d8311f6",
+   "size": 25461956,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_41.mp4": {
+   "md5": "70e209d6b1ef3f5d3a9156e37e2fbca7",
+   "size": 25059492,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_43.mp4": {
+   "md5": "06e46d3cd4a187c927edb73229416a0d",
+   "size": 25979150,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_44.mp4": {
+   "md5": "b79d4f30df912dfb7f2dd79ce7560a8b",
+   "size": 25032040,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_49.mp4": {
+   "md5": "abe01d92e761985a4e04dca62a85291a",
+   "size": 26622295,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_50.mp4": {
+   "md5": "c9e6d25a873712efce963031c07179c3",
+   "size": 26241782,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_51.mp4": {
+   "md5": "bf8c0f4e7340a2442b8b3a6ffd704e9e",
+   "size": 26252409,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_52.mp4": {
+   "md5": "96e00e1e47ec1ec75548a6ea3267918c",
+   "size": 23021985,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_54.mp4": {
+   "md5": "47220948545722e2bddb366310b7fc49",
+   "size": 21966187,
+   "status": "cached"
+  },
+  "data/raw/eth_videos/OFT_58.mp4": {
+   "md5": "53aa4791ef713bfd5f65e330550bf8a4",
+   "size": 26225554,
+   "status": "cached"
+  },
+  "data/raw/eth_dlc/3_01_A_190507121945DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "7dc6a268fe075b679dae16020e1edbf3dac2f27fa67483ebf23154bdd10ce875",
+   "id": "OFT_11"
+  },
+  "data/raw/eth_dlc/21_02_A_190507131119DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "21fba48abdba934daa31840a7c85c66baa69d2aecff4f29942bf3229f5d7d6e9",
+   "id": "OFT_12"
+  },
+  "data/raw/eth_dlc/26_02_A_190507144444DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "4ad22894c5a2c9756acc7b49b4d091af4f3f05285e392cdf83a2642ca230fd39",
+   "id": "OFT_14"
+  },
+  "data/raw/eth_dlc/15_01_A_190507153142DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "539540b5b610cc2f9d5556b1c5fc37660e3b1777712858677f50249b5ffe211a",
+   "id": "OFT_15"
+  },
+  "data/raw/eth_dlc/48_04_A_190507123817DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "d0dea445d0b06d4dd1a72914003efdd81064fc33a1f713b12c6bde0d219e5dd7",
+   "id": "OFT_16"
+  },
+  "data/raw/eth_dlc/40_03_A_190507142917DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "bdce2b15e88fda067d65db6ab6c8497c9da44a70306fe12c3ccb92fedd545bda",
+   "id": "OFT_23"
+  },
+  "data/raw/eth_dlc/58_04_A_190507151611DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "1ae68bdd016ea625b2122467ec83303045b1f050e7e17cfc93aed885bd595c86",
+   "id": "OFT_24"
+  },
+  "data/raw/eth_dlc/8_01_A_190507134142DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "df83e7429fac621de0ab968007278917b43390620c908c90ff0c9b4367d90865",
+   "id": "OFT_38"
+  },
+  "data/raw/eth_dlc/25_02_A_190507142904DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "6fe4e5e42919832c7c94dcb14e4667aed8b4bfcbd8dfaa6382ec94b989d4880e",
+   "id": "OFT_39"
+  },
+  "data/raw/eth_dlc/18_02_A_190507122004DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "fe66ed8e75aa25db95b1dac750c29fa4ae1830f29e92ea21fd4156c7bc733243",
+   "id": "OFT_41"
+  },
+  "data/raw/eth_dlc/23_02_A_190507135734DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "049a4e461c6b3e13de3bd7dfa4d191dd4729d8f87b5aa757694890d4003ab9c4",
+   "id": "OFT_43"
+  },
+  "data/raw/eth_dlc/12_01_A_190507144429DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "b00c35727dc900de2c41842f27ebe2ab3263361eeac63266592a9a80331b1b9c",
+   "id": "OFT_44"
+  },
+  "data/raw/eth_dlc/57_04_A_190507150030DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "038f57140f692f55f259283ddb335e4adf32b9b3cade9f211892c90834aacf78",
+   "id": "OFT_49"
+  },
+  "data/raw/eth_dlc/13_01_A_190507145949DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "9bd77505ff1da4bed32dffc631f79a3980556f501f28fdc1b18a94894d8c4b4d",
+   "id": "OFT_5"
+  },
+  "data/raw/eth_dlc/45_04_A_190507114741DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "ebe6a9ba1d7462330e142bddcb1450a7690b99047f8edee0cb7bf149c4a2a3c1",
+   "id": "OFT_50"
+  },
+  "data/raw/eth_dlc/49_04_A_190507125609DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "2b368236f5f3ea3c6ee90255284d8851d8c79a857a0f205a17db86172a13d3e2",
+   "id": "OFT_51"
+  },
+  "data/raw/eth_dlc/37_03_A_190507134213DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "f2d64886f7235bc439f5b7888f65336f432b8a7edf9e37d376909ccfff8ef5a9",
+   "id": "OFT_52"
+  },
+  "data/raw/eth_dlc/43_03_A_190507151557DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "4f0b6dc788d733e71af5a5da5ab2a7dbe39573328649010a0660d4d95dbaa685",
+   "id": "OFT_54"
+  },
+  "data/raw/eth_dlc/53_04_A_190507135800DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "bb816e86da7f1ca6f2f88eacb79efc62fbf3f559b9aef0baf7471c53cb50a23f",
+   "id": "OFT_58"
+  },
+  "data/raw/eth_dlc/17_02_A_190507120259DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv": {
+   "sha256": "75fa107cc65a6ee5d417fde455e10b2da761b04403b2af3ed5e6abc7a37fde57",
+   "id": "OFT_6"
+  },
+  "data/raw/stockholm/batch2_videos.rar": {
+   "md5": "77bb4539fb07e6fcc75a92f1a08a597f",
+   "size": 413045514,
+   "status": "downloaded"
+  },
+  "data/raw/stockholm/batch2_tracking.rar": {
+   "md5": "f842e5c78f53040f85d1870dabe80e19",
+   "size": 87612797,
+   "status": "downloaded"
+  },
+  "data/raw/stockholm/batch2-1_manual_labeling.csv": {
+   "md5": "c97a01d01510cff7bcb388395d124785",
+   "size": 26935,
+   "status": "downloaded"
+  },
+  "data/raw/stockholm/batch2-2_manual_labeling.csv": {
+   "md5": "49032a98d99af6807ef8c5e2c80fc315",
+   "size": 31077,
+   "status": "downloaded"
+  },
+  "data/raw/stockholm/batch2-3_manual_labeling.csv": {
+   "md5": "58987dd3361f8a07c6e48837da289a95",
+   "size": 30194,
+   "status": "downloaded"
+  },
+  "data/raw/stockholm/batch2_1_unsupervised_labeling.csv": {
+   "md5": "a3d28326cf55d7005093215b9ff77d8c",
+   "size": 472741,
+   "status": "downloaded"
+  },
+  "data/raw/stockholm/batch2_2_unsupervised_labeling.csv": {
+   "md5": "460417994cec56fa1fb2e3237c2e1840",
+   "size": 458210,
+   "status": "downloaded"
+  },
+  "data/raw/stockholm/batch2_3_unsupervised_labeling.csv": {
+   "md5": "40e8b01f2c25f5786cc8554413548639",
+   "size": 456940,
+   "status": "downloaded"
+  }
+ },
+ "id_to_dlcfile": {
+  "OFT_11": "3_01_A_190507121945DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_12": "21_02_A_190507131119DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_14": "26_02_A_190507144444DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_15": "15_01_A_190507153142DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_16": "48_04_A_190507123817DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_23": "40_03_A_190507142917DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_24": "58_04_A_190507151611DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_38": "8_01_A_190507134142DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_39": "25_02_A_190507142904DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_41": "18_02_A_190507122004DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_43": "23_02_A_190507135734DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_44": "12_01_A_190507144429DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_49": "57_04_A_190507150030DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_5": "13_01_A_190507145949DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_50": "45_04_A_190507114741DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_51": "49_04_A_190507125609DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_52": "37_03_A_190507134213DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_54": "43_03_A_190507151557DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_58": "53_04_A_190507135800DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv",
+  "OFT_6": "17_02_A_190507120259DeepCut_resnet50_Blockcourse1May9shuffle1_1030000.csv"
+ }
+}

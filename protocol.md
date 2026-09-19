@@ -13,3 +13,4 @@ This project compares threshold rules and learned classifiers on the same low-di
 | tag | date | change | reason | label-blind? |
 |---|---|---|---|---|
 | prereg-v1 | 2026-09-19 | initial | — | yes |
+| (not adopted) | 2026-09-19 | considered adding a 7x7 morphological opening to remove tail pixels | label-blind QC: the opening changed median ellipse major axis by only 0.09 cm (STK_1) and 0.06 cm (OFT_5), with major-axis SD 1.34→1.34 and 1.16→1.04 cm, so the tracker was left unchanged | yes |
