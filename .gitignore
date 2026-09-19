@@ -1,0 +1,13 @@
+.venv/
+data/
+__pycache__/
+*.pyc
+results/**/*.parquet
+results/**/*.joblib
+results/download.log
+paper/*.aux
+paper/*.log
+paper/*.bbl
+paper/*.blg
+paper/*.out
+.DS_Store

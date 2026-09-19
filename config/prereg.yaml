@@ -1,0 +1,140 @@
+# Pre-registration v1 — committed and tagged `prereg-v1` BEFORE any tracker feature is joined with a label.
+# Any later change goes in a new tagged commit (prereg-v1.x) with a written reason (see protocol.md).
+
+seed: 0
+fps_expected: 25
+
+data:
+  eth:
+    zenodo_record: 3608658
+    ids: [5, 6, 11, 12, 14, 15, 16, 23, 24, 38, 39, 41, 43, 44, 49, 50, 51, 52, 54, 58]
+    labels_repo: ETHZ-INS/DLCAnalyzer
+    labels_commit: d6f9532d191e388a32bef2063f7fd4067946dcec
+    labels_path: data/OFT/Labels/AllLabDataOFT_final.csv
+    arena_side_cm: 42.0          # DLCAnalyzer README: tl/tr/br/bl span 42 x 42 cm
+    corners: dlc_median          # median of DLC tl,tr,br,bl with likelihood > 0.95
+    corner_likelihood_min: 0.95
+  stockholm:
+    zenodo_record: 14382973
+    arena_side_cm: 40.0
+    corners: auto_background     # detected on label-blind background image, visually checked
+    label_files: [batch2-1_manual_labeling.csv, batch2-2_manual_labeling.csv, batch2-3_manual_labeling.csv]
+    frames_column_is_one_based: true
+    video_mapping: >
+      unsupervised-labeling CSV row count == DLC tracking CSV row count -> candidate trials;
+      ties broken label-free by mutual information between the B-SOiD cluster sequence and the
+      candidate trial's DLC body-centre speed (decisive if MI ratio > 2); then MOG2 centroid vs
+      DLC body-centre correlation must be r > 0.9.
+    class_map_primary:
+      supported rear: S
+      unsupported rear: U
+      groom: G
+      "*": O                     # all 7 other classes -> Other (proposal mapping)
+    secondary_analysis: exclude 'stand and sniff' frames (dataset's coarse label calls them rear)
+
+labels:
+  frame_of_time: round(t * fps)            # bout [from,to] covers frames round(from*fps) .. round(to*fps)-1
+  behaviour_types: {Supported: S, Unsupported: U, Grooming: G}
+  exclude_types_for_everyone: [Jumping, _DEFAULT]   # any rater's bout -> frame excluded for all
+  drop_rows_without_end: true                        # the single NA row
+  marker_types: [Start/End, StartEnd]
+  trial_window:
+    start: end of the rater's earliest marker with from <= 10 s
+    end: start of the rater's latest marker with from >= 590 s
+    stray_markers: ignored
+    video_window: intersection across raters; a rater without a start/end marker does not constrain that side
+  rater_vote: {no_label: O, one_label: that label, two_or_more_distinct_labels: ABSTAIN}
+  consensus: class with >= 2 votes; otherwise AMBIGUOUS (excluded from scoring, % reported)
+  sensitivity:
+    - ambiguous_as_other            # proposal's original rule
+    - drop_exact_1s_behaviour_bouts # 115 bouts of exactly 1.000 s (tool default)
+  label_lag: none applied; pooled label-vs-feature cross-correlation lag is a reported diagnostic; if |lag| > 2 frames stop and consult author
+
+calibration:
+  canvas_px_per_cm: 10
+  margin_cm: 8
+
+tracker:   # constants copied from the author's MIT-licensed tracker (tracker.py)
+  blur_ksize: 21
+  mog2_history: 500
+  mog2_var_threshold: 16
+  mog2_detect_shadows: true
+  shadow_threshold: 250
+  morph: close
+  morph_kernel: 5
+  morph_iterations: 2
+  min_contour_area_px: 500        # on the 10 px/cm canvas = 5 cm^2
+  background_pretrain_every_n: 50 # pass 1: every 50th frame inside the trial window, auto learning rate
+  tracking_learning_rate: 0.0     # pass 2
+  ffill_max_s: 0.5
+  head_min_move_cm: 0.2           # head/tail disambiguation: movements > 0.2 cm (2 px on canvas)
+  head_history: 5
+
+features:
+  raw: [speed, accel, area_ratio, body_length_ratio, aspect, ang_speed, solidity, wall_dist,
+        motion_energy, head_ratio, d_wall_min, head_jitter, seg_quality, head_wall_dist]
+  silhouette_only: [speed, accel, area_ratio, body_length_ratio, aspect, ang_speed, solidity, wall_dist, motion_energy]
+  diff_half_width_frames: 2       # speed, accel, ang_speed: centred +-2 frame differences
+  jitter_half_width_frames: 5
+  motion_energy: mean |I_t - I_{t-1}| (grey) inside silhouette bbox / per-video median
+  references: per-video median over tracked in-trial frames
+  dlc_reference_replacements: [dlc_nose_ratio, dlc_len_ratio, dlc_nose_jitter, dlc_mean_likelihood, dlc_nose_wall_dist]
+  windows_frames: [5, 12, 25]
+  window_stats: [mean, std, min, max]
+  include_raw: true
+  include_missing_flag: true
+
+rules:
+  fixed:
+    rear_length_ratio_lt: 0.75
+    rear_area_ratio_lt: 0.80
+    rear_min_frames: 8
+    supported_head_wall_dist_lt_cm: 3.0
+    groom_speed_lt: 2.0
+    groom_area_ratio_gt: 0.6
+    groom_area_ratio_lt: 1.0
+    groom_theta_m: per-video median of motion_energy over frames with speed < 2 cm/s
+    groom_min_frames: 25
+    priority: [rear, groom, other]
+  tuned:
+    objective: macro F1 over S,U,G after post-processing, training videos only
+    stage1: {rear_length_ratio_lt: [0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90],
+             rear_area_ratio_lt: [0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95],
+             rear_min_frames: [4, 8, 12, 16]}
+    stage2: {supported_head_wall_dist_lt_cm: [0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0]}
+    stage3: {groom_speed_lt: [1, 2, 3, 4], groom_area_ratio_gt: [0.5, 0.6, 0.7], groom_area_ratio_lt: [0.9, 1.0, 1.1],
+             groom_theta_m_percentile: [30, 50, 70, 90], groom_min_frames: [12, 25, 50]}
+    order: stage1 (others at fixed values) -> stage2 -> stage3
+
+models:
+  class_weight: balanced
+  dt: {max_depth: 6}
+  rf: {n_estimators: 300, min_samples_leaf: 5, max_samples: 0.25, n_jobs: -1}
+  hgb: {max_iter: 200, early_stopping: false}
+  rf_rule_features: {features: [body_length_ratio, area_ratio, head_wall_dist, speed, motion_energy], same_hparams_as: rf}
+  outer_tuning: none
+
+postprocess:
+  mode_filter_frames: 9
+  min_bout_frames: 5          # non-Other bouts shorter than this -> Other
+  applied_to: all methods (inside the search for tuned rules)
+
+evaluation:
+  lovo_folds: 20
+  headline: macro F1 over S,U,G (3-class)
+  also_report: [per-class precision/recall/F1 mean+-SD, 4-class macro F1, accuracy]
+  bout_level: per-video bout count and total duration vs human (median over the 3 raters), Pearson r + median relative error
+  human_ceiling_primary: pairwise per-class F1 between raters + Fleiss kappa
+  human_ceiling_secondary: each rater vs consensus of the other two (frames where they agree); models scored on same reference
+  primary_test: exact two-sided Wilcoxon signed-rank, RF vs tuned rules, macro F1, n=20
+  secondary_tests: per-class Wilcoxon RF vs tuned rules and HGB vs tuned rules, Holm-corrected
+  gap_u_vs_s: video-level bootstrap (10000) CI of (gap_U - gap_S); claim only if CI excludes 0
+  stockholm: descriptive only; per-class F1 + positive counts + block bootstrap (25-frame blocks, 10000) CI; macro S+U+G and S+U
+  ablations:
+    windows_single: [0, 5, 12, 25, 50]
+    feature_source: [silhouette_only, main, dlc_reference]
+    sensitivity: [ambiguous_as_other, drop_exact_1s_behaviour_bouts]
+  error_analysis: pooled LOVO confusion (RF vs tuned rules); S<->U confusion by wall_dist and head_wall_dist bins [0,2,4,8,inf] cm; corner (<8 cm from two walls) vs side
+
+cut_order: [dt_tree_figure, sensitivity_1s, dlc_ablation, silhouette_only_ablation, hgb, stockholm_bout_counts]
+stockholm_fallback: 3x3 cross-rater grid (train on rater A, test on rater B; diagonal = within-rater LOVO)
