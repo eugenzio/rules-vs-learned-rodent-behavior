@@ -1,0 +1,79 @@
+\documentclass[10pt, conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{cite}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{url}
+\graphicspath{{figs/}}
+% every number in the text comes from results/*.json via generated/numbers.tex
+\makeatletter
+\newcommand{\num}[1]{\ifcsname num@#1\endcsname\csname num@#1\endcsname\else\errmessage{Undefined number key #1}\fi}
+\makeatother
+\input{generated/numbers.tex}
+
+\begin{document}
+
+\title{How Far Do Threshold Rules Go? Rodent Behavior Classification from Low-Dimensional CPU-Only Tracking Features under Cross-Animal and Cross-Lab Shift}
+
+\author{\IEEEauthorblockN{Eugene Cha (High School Student)}
+\IEEEauthorblockA{Paul Duke STEM High School\\Norcross, Georgia, USA\\Email: eugene201903t@gmail.com}}
+
+\maketitle
+
+\begin{abstract}
+ABSTRACT
+\end{abstract}
+
+\section{Introduction}
+Rearing and self-grooming are standard read-outs of exploration, anxiety, and stereotypy in rodent open-field tests~\cite{seibenhener2015,kalueff2016}, and scoring them by hand costs 40--60 min per 10-min video~\cite{sturman2020}. Commercial trackers~\cite{noldus2001,anymaze} and open pose-based pipelines~\cite{mathis2018,goodwin2024,sturman2020} automate this, but the former are expensive and the latter need GPUs, labeled training frames, and programming skills that many teaching and small laboratories lack. Low-cost trackers therefore reduce each frame to a handful of silhouette features (position, area, body length) that a laptop CPU can compute in real time~\cite{pennington2019}.
+
+Behavior labels from such trackers are almost always produced by hand-written threshold rules, for example ``the animal rears when its silhouette shortens.'' Rules are transparent and need no training data, but they encode an intuition about what a behavior looks like from above, and we are not aware of a controlled test of that intuition against the obvious alternative: a lightweight learned classifier given \emph{exactly the same} low-dimensional features. If the gap is small, rules are the right tool for low-resource labs; if it is large, a few minutes of CPU training on public labels buys most of the accuracy.
+
+We ask four questions. (RQ1) On identical features, how large is the gap between rules and learned models, and does it differ across supported rearing, unsupported rearing, and grooming? (RQ2) Which approach degrades less when the animal changes (leave-one-video-out) and when the laboratory, camera, and annotators change? (RQ3) How much do temporal context and the source of head information contribute? (RQ4) Does a learned model keep CPU-only processing faster than real time?
+
+Our contributions are: (i) a controlled comparison of fixed and tuned threshold rules against decision-tree, random-forest, and gradient-boosting classifiers on one set of \num{n_raw_features} per-frame features, including a random forest restricted to the rules' own inputs; (ii) evaluation under animal shift (20 videos, 3 raters, \num{n_scored_k}k frames) and lab shift (an independent laboratory); (iii) ablations of window length and feature source, including a dense-pose reference; and (iv) a CPU cost analysis, with code and per-frame features released and all analysis choices pre-registered before labels were joined to features.
+
+\section{Related Work}
+\emph{Rule-based trackers.} EthoVision~\cite{noldus2001}, ANY-maze~\cite{anymaze}, and the open-source ezTrack~\cite{pennington2019} segment the animal from the background and derive behaviors from thresholds on its trajectory and silhouette; background subtraction with adaptive Gaussian mixtures (MOG2)~\cite{zivkovic2004} is the usual CPU-friendly front end.
+
+\emph{Pose and learning-based pipelines.} DeepLabCut~\cite{mathis2018} made markerless keypoint tracking practical; supervised classifiers on top of keypoints include JAABA~\cite{kabra2013}, SimBA~\cite{goodwin2024}, and the DLCAnalyzer network of Sturman \emph{et al.}~\cite{sturman2020}, which reached human-level rearing accuracy on the dataset we reuse; B-SOiD~\cite{hsu2021} and the methods compared by Mlost \emph{et al.}~\cite{mlost2025} discover behaviors without labels, and DeepEthogram~\cite{bohnslav2021} classifies raw pixels. All of these assume dense pose or raw video and, in practice, a GPU.
+
+\emph{Positioning.} We do not compete with these systems~\cite{anderson2014}. We hold the input fixed at what a CPU silhouette tracker produces and ask whether replacing its rules with a small learned model is worth it.
+
+\section{Data}
+\emph{A. Primary set (ETH).} We use the 20 open-field videos of Sturman \emph{et al.}~\cite{sturman2020} (Zenodo 10.5281/zenodo.3608658): one C57BL/6 mouse per 10-min top-down recording, 928$\times$576 px at 25~fps. Three trained raters independently annotated supported rears, unsupported rears, and grooming as onset/offset times (DLCAnalyzer repository, label file at commit \texttt{d6f9532}). We converted each rater's bouts to frames ($[\mathrm{round}(25t_\mathrm{on}), \mathrm{round}(25t_\mathrm{off}))$), kept only frames inside the trial markers of all three raters, and excluded frames any rater marked as jumping or as a tool placeholder. A rater who assigned two behaviors to the same frame abstained on it. Ground truth is the class chosen by at least two raters; the \num{pct_ambiguous}\% of frames without such a majority were excluded (treating them as ``other,'' as initially planned, is reported as a sensitivity analysis). This leaves \num{n_scored} scored frames (Table~\ref{tab:data}).
+
+\emph{B. External set (Stockholm).} The dataset of Mlost \emph{et al.}~\cite{mlost2025} (Zenodo 10.5281/zenodo.14382973) was recorded in another laboratory with a different camera (650$\times$600 px, 25~fps, 40$\times$40~cm white arena). Three experts labeled \num{stk_n_labelled} frames from three mice with ten classes by consensus; we mapped supported rear, unsupported rear, and groom to our classes and the other seven to ``other,'' as fixed before the test. We matched the label files to videos without using labels, through frame counts and the mutual information between the deposited unsupervised cluster sequences and the pose tracks. Grooming is rare in this set (\num{stk_n_groom} frames).
+
+\emph{C. Human agreement.} Pairwise frame-level F1 between raters, our human ceiling, was \num{human_S} (supported), \num{human_U} (unsupported), and \num{human_G} (grooming), with Fleiss' $\kappa=\num{fleiss_kappa}$.
+
+\section{Method}
+\emph{A. Tracker.} Each frame is warped by a homography onto a top-down canvas of 10~px/cm (ETH: the four arena reference points tracked in the original study, spanning 42$\times$42~cm; Stockholm: floor corners detected automatically on the background image). A MOG2 background model~\cite{zivkovic2004} (history 500, variance threshold 16, shadows removed) is first trained on every 50th in-trial frame and then applied with a frozen background, so that a motionless animal is not absorbed; we then apply a 21$\times$21 Gaussian blur before subtraction, morphological closing, and take the largest contour. The head end of the fitted ellipse is chosen by recent movement direction. Tracking covered $\geq$\num{coverage_min}\% of frames in every video, and its centroid agreed with the original study's pose estimate to a median of \num{align_err_eth}~cm at zero lag.
+
+\emph{B. Features.} Fourteen per-frame features, all in cm, cm/s, or within-video ratios: speed and acceleration ($\pm$2-frame differences), area and ellipse major axis relative to the video median, aspect ratio, axis angular speed, solidity, signed centroid-to-wall distance, and motion energy (mean frame difference inside the bounding box, relative to the video median); plus a contour \emph{head proxy} replacing keypoints, which a CPU rodent pose model does not provide: head extent, head-to-wall distance, minimum contour-to-wall distance, head jitter ($\pm$5 frames), and segmentation purity. Learned models additionally see the mean, SD, min, and max of each feature in centred windows of $\pm$5, 12, and 25 frames (0.2--1~s): 182 inputs.
+
+\emph{C. Rules.} The \emph{fixed} rules were written before seeing data: rear if body-length ratio $<$0.75 and area ratio $<$0.8 for $\geq$8 frames, supported if the head is within 3~cm of a wall; groom if speed $<$2~cm/s, 0.6$<$area ratio$<$1.0, and motion energy above the video's median for slow frames, for $\geq$25 frames. \emph{Tuned} rules search the same thresholds on the training videos only (staged grid, macro-F1 objective). After seeing the grid saturate, we added a post-hoc \emph{wide} grid (rear thresholds up to 1.10), reported separately.
+
+\emph{D. Learned models.} A decision tree (depth 6), random forest (RF; 300 trees)~\cite{breiman2001}, and histogram gradient boosting (GBM; 200 iterations)~\cite{friedman2001}, all from scikit-learn~\cite{pedregosa2011} with balanced class weights and no hyperparameter tuning. As a control, an RF sees only the five features the rules use (and their windows).
+
+\emph{E. Post-processing.} Every method's output passes the same 9-frame majority filter, after which behavior bouts shorter than 5 frames become ``other.''
+
+\emph{F. Protocol.} Leave-one-video-out (LOVO) cross-validation over the 20 ETH videos; for the lab shift, every method is trained (or tuned) on all 20 and applied once to Stockholm. The headline metric is the macro F1 over the three behaviors; bout counts are compared with the raters' median per video. The primary test is an exact Wilcoxon signed-rank test over the 20 folds (RF vs.\ tuned rules), with Holm correction for secondary tests. Thresholds, grids, hyperparameters, and tests were committed to a pre-registration before any label was joined to a feature.
+
+\section{Results}
+RESULTS
+
+\section{Discussion and Limitations}
+DISCUSSION
+
+\section{Conclusion}
+CONCLUSION
+
+\section*{Data, Code, and Ethics Statement}
+ETHICS
+
+\input{refs.tex}
+
+\end{document}
