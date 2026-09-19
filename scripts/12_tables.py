@@ -184,6 +184,28 @@ def main():
                 for b_, v in e[m]["head_wall_dist"].items():
                     key = {"<0": "neg", "0-2": "zto", "2-4": "twf", "4-8": "fte", ">=8": "gte"}[b_]
                     put(f"su_{KEY[m]}_hw{key}", f"{100 * v['rate']:.0f}")
+    # ---------------- diagnostics (post-hoc) ----------------
+    if (R / "diagnostics.json").exists():
+        dg = json.load(open(R / "diagnostics.json"))
+        for c, short in (("Supported", "S"), ("Unsupported", "U"), ("Grooming", "G"), ("Other", "O")):
+            put(f"diag_blr_{short}", f2(dg["median"][c]["body_length_ratio"]))
+            put(f"diag_ar_{short}", f2(dg["median"][c]["area_ratio"]))
+            put(f"diag_hw_{short}", f"{dg['median'][c]['head_wall_dist']:.1f}")
+            put(f"diag_rearcond_{short}", f"{100 * dg['frac_fixed_rear_condition'][c]:.0f}")
+            put(f"diag_groomcond_{short}", f"{100 * dg['frac_fixed_groom_condition'][c]:.0f}")
+    # tuned thresholds across folds
+    for m in ("tuned_rules", "tuned_rules_wide"):
+        if m in res:
+            ex = res[m]["extra"]
+            for k, short in (("rear_length_ratio_lt", "tauL"), ("rear_area_ratio_lt", "tauA"),
+                             ("supported_head_wall_dist_lt_cm", "tauW"), ("groom_speed_lt", "tauV")):
+                vals = np.array([e["params"][k] for e in ex.values()], float)
+                put(f"{KEY[m]}_{short}", f"{np.median(vals):g}")
+                summary.setdefault("tuned_params", {}).setdefault(m, {})[k] = {"median": float(np.median(vals)),
+                                                                              "min": float(vals.min()), "max": float(vals.max())}
+            grid_max = {"tuned_rules": 0.90, "tuned_rules_wide": 1.10}[m]
+            n_ceiling = int(sum(e["params"]["rear_length_ratio_lt"] >= grid_max - 1e-9 for e in ex.values()))
+            put(f"{KEY[m]}_nceilL", str(n_ceiling))
     # ---------------- write ----------------
     GEN.mkdir(parents=True, exist_ok=True)
     with open(GEN / "numbers.tex", "w") as f:

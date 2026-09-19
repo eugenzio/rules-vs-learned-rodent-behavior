@@ -63,7 +63,24 @@ Our contributions are: (i) a controlled comparison of fixed and tuned threshold 
 \emph{F. Protocol.} Leave-one-video-out (LOVO) cross-validation over the 20 ETH videos; for the lab shift, every method is trained (or tuned) on all 20 and applied once to Stockholm. The headline metric is the macro F1 over the three behaviors; bout counts are compared with the raters' median per video. The primary test is an exact Wilcoxon signed-rank test over the 20 folds (RF vs.\ tuned rules), with Holm correction for secondary tests. Thresholds, grids, hyperparameters, and tests were committed to a pre-registration before any label was joined to a feature.
 
 \section{Results}
-RESULTS
+\input{generated/table_main.tex}
+
+\emph{A. Animal shift (LOVO).} Table~\ref{tab:main} and Fig.~\ref{fig:lovo} summarize the 20 folds. The fixed rules almost never fired (macro F1 \num{fixed_macro}). The reason is visible in the features: from a top-down camera a rearing mouse barely shortens, so the median body-length ratio was \num{diag_blr_S} (supported) and \num{diag_blr_U} (unsupported), and only \num{diag_rearcond_S}\% and \num{diag_rearcond_U}\% of rearing frames met the rule's condition, whereas \num{diag_rearcond_G}\% of grooming frames did, since grooming is the most compact posture (\num{diag_blr_G}). Tuning helped little: every fold chose the edge of the pre-registered grid (length ratio $<$\num{tuned_tauL} in \num{tuned_nceilL}/20 folds), for a macro F1 of \num{tuned_macro}, and even the post-hoc wide grid, which also settled on its edge (\num{wide_tauL}), reached only \num{wide_macro}. The head-to-wall distance, in contrast, separated the two rear types well (median \num{diag_hw_S}~cm vs.\ \num{diag_hw_U}~cm).
+
+All learned models were far better. RF reached a macro F1 of \num{rf_macro}$\pm$\num{rf_macro_sd} and GBM \num{gbm_macro}$\pm$\num{gbm_macro_sd}, against a human pairwise ceiling of \num{human_macro}; RF beat the pre-registered tuned rules in every fold (median difference \num{delta_primary}, exact Wilcoxon $p=\num{p_primary}$, rank-biserial $r=\num{rbc_primary}$; all secondary tests $p_\mathrm{Holm}\le\num{p_holm_max}$). On supported rearing RF matched the raters (\num{rf_S} vs.\ \num{human_S}); unsupported rearing (\num{rf_U}) and grooming (\num{rf_G}) stayed below them. Crucially, an RF given only the five features the rules use scored \num{rfrule_macro}, so the rules' deficit lies in their fixed conjunctive thresholds rather than in the information available to them. Contrary to our hypothesis, the rule-to-RF gap was largest for supported rearing (\num{gap_S}) rather than unsupported rearing (\num{gap_U}; difference \num{gapUS_mean}, 95\% CI [\num{gapUS_lo}, \num{gapUS_hi}]). Bout counts per video followed the raters' median closely for RF on supported rears ($r=\num{rf_boutr_S}$) and less for unsupported rears ($r=\num{rf_boutr_U}$) and grooming ($r=\num{rf_boutr_G}$), versus $r=\num{human_boutr_S}$, \num{human_boutr_U}, and \num{human_boutr_G} between one rater and the other two.
+
+\begin{figure*}[t]\centering
+\includegraphics[width=\textwidth]{fig2_lovo.pdf}
+\caption{Per-behavior frame F1 over the 20 LOVO folds (dots: individual videos). Orange: threshold rules (hatched: post-hoc wide grid); blue: learned models; aqua: RF restricted to the rules' five inputs. Dashed line: mean pairwise F1 between the three human raters.}\label{fig:lovo}
+\end{figure*}
+
+\emph{B. Lab shift.} STOCKHOLM
+
+\emph{C. Ablations.} ABLATIONS
+
+\emph{D. Compute.} COMPUTE
+
+\emph{E. Error analysis.} ERRORS
 
 \section{Discussion and Limitations}
 DISCUSSION
@@ -72,7 +89,7 @@ DISCUSSION
 CONCLUSION
 
 \section*{Data, Code, and Ethics Statement}
-ETHICS
+No new animal experiments were performed. Videos come from two public CC-BY-4.0 Zenodo records (10.5281/zenodo.3608658; 10.5281/zenodo.14382973); ETH labels and pose files come from the GPL-3.0 DLCAnalyzer repository at pinned commits and are linked, not redistributed. Code, the pre-registration, per-frame features, and predictions are released at \url{https://github.com/eugenzio/rules-vs-learned-rodent-behavior}.
 
 \input{refs.tex}
 
