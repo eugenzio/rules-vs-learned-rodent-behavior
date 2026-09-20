@@ -43,11 +43,11 @@ COLOR = {"fixed_rules": ORANGE, "tuned_rules": ORANGE, "tuned_rules_wide": ORANG
 HATCH = {"tuned_rules_wide": "/////"}
 SERIF = ["Times New Roman", "Nimbus Roman No9 L", "Nimbus Roman", "Times", "STIX Two Text", "DejaVu Serif"]
 
-plt.rcParams.update({"font.size": 7, "font.family": "serif", "font.serif": SERIF,
+plt.rcParams.update({"font.size": 8, "font.family": "serif", "font.serif": SERIF,
                      "mathtext.fontset": "custom", "mathtext.rm": "Times New Roman",
                      "mathtext.it": "Times New Roman:italic", "mathtext.bf": "Times New Roman:bold", "axes.linewidth": 0.6,
-                     "axes.labelsize": 7, "axes.titlesize": 7, "legend.fontsize": 6,
-                     "xtick.labelsize": 6.5, "ytick.labelsize": 6.5,
+                     "axes.labelsize": 8, "axes.titlesize": 8, "legend.fontsize": 6.5,
+                     "xtick.labelsize": 7, "ytick.labelsize": 7,
                      "xtick.direction": "out", "ytick.direction": "out",
                      "xtick.major.width": 0.6, "ytick.major.width": 0.6,
                      "xtick.major.size": 2.2, "ytick.major.size": 2.2,
@@ -73,7 +73,7 @@ def fig2():
     panels = [("Supported_F1", "Supported rear", lab["Supported"]), ("Unsupported_F1", "Unsupported rear", lab["Unsupported"]),
               ("Grooming_F1", "Grooming", lab["Grooming"]), ("macro3", "Macro F1 (3 behaviors)", lab["macro3"])]
     ms = [m for m in METHODS if (R / f"lovo/{m}.json").exists()]
-    fig, axes = plt.subplots(1, 4, figsize=(7.16, 1.92), sharey=True)
+    fig, axes = plt.subplots(1, 4, figsize=(7.16, 2.08), sharey=True)
     for ax, (k, title, human) in zip(axes, panels):
         data = [per_video(m, k)[np.isfinite(per_video(m, k))] for m in ms]
         # every fold is plotted individually, so fliers are off: drawing them too
@@ -91,8 +91,8 @@ def fig2():
             ax.plot(x, d, ls="none", marker="o", ms=1.6, mfc="none", mec=INK2, mew=0.35,
                     alpha=0.75, zorder=3)
         ax.axhline(human, color=INK2, lw=0.6, ls=(0, (2.5, 2)), zorder=2)
-        ax.set_xticks(range(1, len(ms) + 1)); ax.set_xticklabels([SHORT[m] for m in ms], fontsize=5.8)
-        ax.set_title(title, fontsize=7, color=INK, pad=3)
+        ax.set_xticks(range(1, len(ms) + 1)); ax.set_xticklabels([SHORT[m] for m in ms], fontsize=6.0)
+        ax.set_title(title, fontsize=8, color=INK, pad=3)
         ax.set_ylim(-0.03, 1.04); ax.set_yticks(np.arange(0, 1.01, 0.2))
         ax.set_xlim(0.4, len(ms) + 0.6)
         style(ax)
@@ -102,7 +102,7 @@ def fig2():
                Patch(fc=AQUA, ec=INK2, alpha=0.45, lw=0.6, label="RF, rule inputs only"),
                Line2D([], [], color=INK2, lw=0.6, ls=(0, (2.5, 2)), label="Human pairwise ceiling")]
     fig.legend(handles=handles, ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.005),
-               fontsize=6, columnspacing=1.6, handlelength=1.5)
+               fontsize=6.5, columnspacing=1.6, handlelength=1.5)
     fig.tight_layout(w_pad=0.7, rect=(0, 0, 1, 0.932))
     fig.savefig(FIG / "fig2_lovo.pdf")
     plt.close(fig)
@@ -111,7 +111,7 @@ def fig2():
 def fig3():
     s = json.load(open(R / "stockholm/results.json"))["analyses"]["primary"] if (R / "stockholm/results.json").exists() else {}
     ms = [m for m in METHODS if (R / f"lovo/{m}.json").exists()]
-    fig, axes = plt.subplots(1, 3, figsize=(7.16, 1.80), gridspec_kw={"width_ratios": [2.1, 1.3, 1.1]})
+    fig, axes = plt.subplots(1, 3, figsize=(7.16, 1.98), gridspec_kw={"width_ratios": [2.1, 1.3, 1.1]})
     lab = json.load(open(R / "labels_summary.json"))["pairwise_f1_mean"]["macro3"]
     main = np.nanmean(per_video("rf", "macro3"))
     # (a) LOVO -> Stockholm, one connector per method
@@ -124,17 +124,17 @@ def fig3():
         ax.plot(i, lv, marker="o", ms=3.6, mfc=COLOR[m], mec=COLOR[m], mew=0.9, zorder=3)
     ax.axhline(lab, color=INK2, lw=0.6, ls=(0, (2.5, 2)), zorder=1)
     ax.annotate("human", (len(ms) - 0.45, lab), xytext=(0, 1.5), textcoords="offset points",
-                fontsize=5.8, va="bottom", ha="right", color=INK)
+                fontsize=6.5, va="bottom", ha="right", color=INK)
     handles = [Line2D([], [], ls="none", marker="o", ms=3.6, mfc=INK2, mec=INK2, label="ETH (leave-one-video-out)"),
                Line2D([], [], ls="none", marker="o", ms=3.6, mfc="white", mec=INK2, mew=0.9,
                       label="Stockholm (external)")]
-    ax.legend(handles=handles, fontsize=5.8, loc="upper left", handletextpad=0.4,
+    ax.legend(handles=handles, fontsize=6.5, loc="upper left", handletextpad=0.4,
               borderpad=0.1, labelspacing=0.3)
-    ax.set_xticks(range(len(ms))); ax.set_xticklabels([SHORT[m] for m in ms], fontsize=5.8)
+    ax.set_xticks(range(len(ms))); ax.set_xticklabels([SHORT[m] for m in ms], fontsize=6.5)
     ax.set_xlim(-0.6, len(ms) - 0.4)
     ax.set_ylabel("Macro F1 (3 behaviors)"); ax.set_ylim(0, 1.04)
     ax.set_yticks(np.arange(0, 1.01, 0.2))
-    ax.set_title("(a) Laboratory shift", fontsize=7, loc="left", pad=3)
+    ax.set_title("(a) Laboratory shift", fontsize=8, loc="left", pad=3)
     style(ax)
     # (b) window ablation (RF); y is zoomed -- stated in the caption
     ax = axes[1]
@@ -146,17 +146,17 @@ def fig3():
     secs = [k / 25 for k in ks]
     ax.axhline(lab, color=INK2, lw=0.6, ls=(0, (2.5, 2)), zorder=1)
     ax.annotate("human", (2.05, lab), xytext=(0, 1.5), textcoords="offset points",
-                fontsize=5.8, va="bottom", ha="right", color=INK)
+                fontsize=6.5, va="bottom", ha="right", color=INK)
     ax.axhline(main, color=MUTED, lw=0.7, ls=(0, (1, 1.6)), zorder=1)
     ax.annotate("all three windows", (2.05, main), xytext=(0, 1.5), textcoords="offset points",
-                fontsize=5.8, va="bottom", ha="right", color=INK2)
+                fontsize=6.5, va="bottom", ha="right", color=INK2)
     ax.plot(secs, vals, color=BLUE, lw=0.9, marker="o", ms=3.0, mfc="white", mec=BLUE, mew=0.9, zorder=3)
     ax.set_xlabel("Window half-width (s)"); ax.set_ylim(0.30, 0.88); ax.set_xticks(secs)
-    ax.set_xticklabels([f"{x:g}" for x in secs], fontsize=5.8)
+    ax.set_xticklabels([f"{x:g}" for x in secs], fontsize=6.5)
     ax.set_yticks(np.arange(0.3, 0.81, 0.1))
-    ax.tick_params(axis="y", labelsize=5.8)
+    ax.tick_params(axis="y", labelsize=6.5)
     ax.set_xlim(-0.12, 2.12)
-    ax.set_title("(b) Temporal context (RF)", fontsize=7, loc="left", pad=3)
+    ax.set_title("(b) Temporal context (RF)", fontsize=8, loc="left", pad=3)
     style(ax)
     # (c) feature source (RF)
     ax = axes[2]
@@ -174,11 +174,11 @@ def fig3():
         b.set_alpha(0.45)
     bars[2].set_facecolor("white"); bars[2].set_alpha(1.0); bars[2].set_hatch("....")
     for i, v in enumerate(vals):
-        ax.text(i, v + 0.02, f"{v:.2f}", ha="center", fontsize=6, color=INK)
-    ax.set_xticks(range(3)); ax.set_xticklabels([t for _, t in src], fontsize=5.8)
+        ax.text(i, v + 0.02, f"{v:.2f}", ha="center", fontsize=7, color=INK)
+    ax.set_xticks(range(3)); ax.set_xticklabels([t for _, t in src], fontsize=6.5)
     ax.set_ylim(0, 1.04); ax.set_yticks(np.arange(0, 1.01, 0.2))
     ax.set_xlim(-0.62, 2.62)
-    ax.set_title("(c) Feature source (RF)", fontsize=7, loc="left", pad=3)
+    ax.set_title("(c) Feature source (RF)", fontsize=8, loc="left", pad=3)
     style(ax)
     fig.tight_layout(w_pad=1.0)
     fig.savefig(FIG / "fig3_shift_ablation.pdf")
@@ -191,7 +191,7 @@ def fig1(examples):
     # Saved at exactly \textwidth and WITHOUT bbox_inches="tight": a tight box would
     # crop the canvas to ~5.6 in, and LaTeX would then scale it back up to 7.16 in,
     # printing this figure's type ~28% larger than Fig. 2 and Fig. 3.
-    fig = plt.figure(figsize=(7.16, 1.50))
+    fig = plt.figure(figsize=(7.16, 1.56))
     gs = fig.add_gridspec(1, 8, width_ratios=[1.45, 1.05, 0.75, 0.75, 0.75, 0.75, 0.22, 1.95],
                           wspace=0.08, left=0.004, right=0.996, top=0.845, bottom=0.01)
     img_axes = []
@@ -208,7 +208,7 @@ def fig1(examples):
     top = max(a.get_position().y1 for a, _ in img_axes)
     for a, t in img_axes:   # one baseline for every panel title
         p = a.get_position()
-        fig.text((p.x0 + p.x1) / 2, top + 0.025, t, ha="center", va="bottom", fontsize=6.5, color=INK)
+        fig.text((p.x0 + p.x1) / 2, top + 0.025, t, ha="center", va="bottom", fontsize=7.5, color=INK)
     # Stage boxes: square corners, drawn as real patches spanning the column so the
     # frame can never fall outside the saved bounding box (text bboxes could).
     ax = fig.add_subplot(gs[7]); ax.axis("off")
@@ -220,7 +220,7 @@ def fig1(examples):
     for y, t in boxes:
         ax.add_patch(Rectangle((0.0, y - bh / 2), 1.0, bh, transform=ax.transAxes,
                                facecolor="white", edgecolor=INK2, lw=0.6, zorder=1, clip_on=False))
-        ax.text(0.5, y, t, ha="center", va="center", fontsize=6, color=INK, zorder=2,
+        ax.text(0.5, y, t, ha="center", va="center", fontsize=6.8, color=INK, zorder=2,
                 linespacing=1.35, transform=ax.transAxes)
     for y0, y1 in ((0.845 - bh / 2, 0.500 + bh / 2), (0.500 - bh / 2, 0.155 + bh / 2)):
         ax.annotate("", (0.5, y1), (0.5, y0), xycoords="axes fraction",

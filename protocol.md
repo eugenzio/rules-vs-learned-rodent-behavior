@@ -65,3 +65,19 @@ frames were embedded at 100 ppi and printed near 78 ppi (now 600 dpi); and Fig. 
 never cited in the body text (now cited in Method A). Fonts are Times New Roman only,
 matching IEEEtran, with no STIX mathtext. The palette is Okabe-Ito, validated with the
 dataviz checker (six checks pass).
+
+## Template conformance check against the official IEEE materials (2026-09-20)
+Checked the paper against the IEEE conference template (IEEE-conference-template-062824)
+and the IEEEtran HOWTO rather than against assumption:
+- Class is correct. The official template is `\documentclass[conference]{IEEEtran}`, which
+  is what we use (10pt is the IEEEtran default). The IEEEtran HOWTO II-D-2-a warns that
+  "many IEEE Computer Society conferences use the traditional conference format and
+  compsoc mode should not be used with them", so `compsoc` was considered and rejected.
+- Fixed: the abstract contained math ($p=1.9\times10^{-6}$). The template marks this
+  CRITICAL ("Do Not Use Symbols, Special Characters, Footnotes, or Math in Paper Title
+  or Abstract"). The p-value was removed from the abstract; "all 20 folds" already
+  carries the claim and the exact test stays in Results V-A. Title has no math.
+- Added Index Terms, which the template includes and the paper lacked.
+- Figure text raised toward the template's "8 point Times New Roman for Figure labels":
+  axis labels and panel titles are now 8 pt. Fig. 2's tick labels stay at 6 pt because
+  four panels of seven categories collide at 7 pt; the axis label carries the 8 pt size.
