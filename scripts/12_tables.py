@@ -154,6 +154,10 @@ def main():
                 dm = P[m]["macro3"] - summary[m]["macro"]["mean"]
                 put(f"delta_{KEY[m]}", f"{dm:+.2f}")
                 summary["stockholm"][m] = {"macro3": P[m]["macro3"], "macroSU": P[m]["macro_SU"], "delta_macro3": dm}
+        lov_rf, lov_tu = summary["rf"]["macro"]["mean"], summary["tuned_rules"]["macro"]["mean"]
+        put("gap_macro_lovo", f2(lov_rf - lov_tu))
+        put("gap_macro_stk", f2(P["rf"]["macro3"] - P["tuned_rules"]["macro3"]))
+        put("stk_rules_max", f2(max(P[m]["macro3"] for m in ("fixed_rules", "tuned_rules", "tuned_rules_wide"))))
         S2 = s["analyses"]["exclude_stand_and_sniff"]
         for m in ("rf", "tuned_rules", "tuned_rules_wide"):
             if m in S2:
@@ -171,6 +175,8 @@ def main():
             put(f"{KEY[m]}_mb", f"{v['size_mb']:.1f}")
             put(f"{KEY[m]}_efps", f"{c['end_to_end_fps'][m]:.0f}")
         put("rules_efps", f"{c['end_to_end_fps']['rules']:.0f}")
+        put("rules_us", f"{c['fixed_rules_us_per_frame']:.1f}")
+        put("efps_drop_pct", f"{100 * (1 - min(c['end_to_end_fps'][m] for m in ('dt', 'rf', 'hgb', 'rf_rule')) / c['end_to_end_fps']['rules']):.1f}")
         put("feat_us", f"{c['raw_features_us_per_frame'] + c['windowing_us_per_frame']:.0f}")
         put("cpu_name", c["machine"]["cpu"])
     # ---------------- error analysis ----------------

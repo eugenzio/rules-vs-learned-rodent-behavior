@@ -71,7 +71,7 @@ def fig2():
             x = np.random.default_rng(i).uniform(-0.18, 0.18, len(d)) + i + 1
             ax.scatter(x, d, s=1.3, color=INK, alpha=0.35, lw=0, zorder=3)
         ax.axhline(human, color=MUTED, lw=0.8, ls=(0, (3, 2)), zorder=2)
-        ax.text(len(ms) + 0.45, human, "human", color=INK2, fontsize=5.5, va="bottom", ha="right")
+        ax.text(0.6, human, "human", color=INK2, fontsize=5.5, va="bottom", ha="left")
         ax.set_xticks(range(1, len(ms) + 1)); ax.set_xticklabels([SHORT[m] for m in ms], fontsize=5.2)
         ax.set_title(title, fontsize=6.5, color=INK, pad=3)
         ax.set_ylim(-0.02, 1.0)
@@ -111,9 +111,8 @@ def fig3():
     secs = [k / 25 for k in ks]
     ax.plot(secs, vals, color=BLUE, lw=1.2, marker="o", ms=3.2, mec="white", mew=0.5)
     main = np.nanmean(per_video("rf", "macro3"))
-    ax.scatter([1.0], [main], marker="*", s=30, color=BLUE, edgecolor=INK, lw=0.3, zorder=4)
-    ax.annotate("all 3 windows", (1.0, main), xytext=(1.25, main - 0.09), fontsize=5.5, color=INK2,
-                arrowprops=dict(arrowstyle="-", lw=0.4, color=INK2))
+    ax.axhline(main, color=BLUE, lw=0.8, ls=(0, (1, 1.6)))
+    ax.text(2.0, main + 0.008, "all three windows", color=BLUE, fontsize=5.5, va="bottom", ha="right")
     lab = json.load(open(R / "labels_summary.json"))["pairwise_f1_mean"]["macro3"]
     ax.axhline(lab, color=MUTED, lw=0.8, ls=(0, (3, 2)))
     ax.text(2.0, lab, "human", color=INK2, fontsize=5.5, va="bottom", ha="right")
