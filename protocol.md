@@ -50,3 +50,18 @@ the text; none changed an experimental result:
 One audit finding was checked and rejected: "one CPU core" is supported, because
 `src/rr/track.py` calls `cv2.setNumThreads(1)` and `scripts/09_cost.py` sets
 `n_jobs=1` on every model before timing it.
+
+## Figure redesign (2026-09-20)
+The figures were restyled to match the typeset page and reviewed by four independent
+agents. Two defects found were substantive rather than cosmetic:
+- Fig. 2 drew outliers twice: `showfliers=True` while every one of the 20 folds was
+  also plotted individually. Fliers are now off.
+- Fig. 3's caption described a star marking the pre-registered windows; no star
+  exists in the figure. Corrected to the dotted reference line.
+Three production defects were also fixed: Fig. 1 was exported 402 pt wide and placed
+at \textwidth, so LaTeX upscaled it 1.28x and its type printed ~28% larger than the
+other figures (now saved at the full 515.5 pt, no `bbox_inches="tight"`); its video
+frames were embedded at 100 ppi and printed near 78 ppi (now 600 dpi); and Fig. 1 was
+never cited in the body text (now cited in Method A). Fonts are Times New Roman only,
+matching IEEEtran, with no STIX mathtext. The palette is Okabe-Ito, validated with the
+dataviz checker (six checks pass).
