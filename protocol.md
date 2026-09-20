@@ -21,3 +21,10 @@ This project compares threshold rules and learned classifiers on the same low-di
 - **References after gap filling.** The per-video medians are taken over the forward-filled series (gaps up to 0.5 s), not only over frames with a detection. The pre-registration says "tracked in-trial frames". The affected fraction is at most 1.2% of frames in one video and below 0.1% elsewhere, so the series were not recomputed.
 - **Exact tests.** `paired_wilcoxon` originally fell back to the normal approximation whenever any fold had a zero difference, which affected the two grooming comparisons. Fixed to use the exact test on the non-zero pairs (scipy drops zeros with `zero_method="wilcox"`); the corrected p-values are smaller, so no conclusion changed.
 - **Error-analysis zones.** Frames without a tracked centroid were being binned as "centre"; they now form their own `untracked` bucket.
+
+## External test: used once (2026-09-19)
+`scripts/10_stockholm.py` ran at 23:15 on commit `6775a1f`, with the working tree
+clean (the script refuses to run otherwise). It recorded the SHA-256 of every model
+it loaded and wrote `results/stockholm/LOCK`. No feature, threshold, model or label
+mapping was changed after that run; the Stockholm numbers in the paper are from this
+single execution. A rerun would have to be disclosed here.
