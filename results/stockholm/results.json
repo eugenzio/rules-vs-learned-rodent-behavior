@@ -1,0 +1,1163 @@
+{
+ "git_sha": "6775a1f15deb1f8b9b1cee768938f3021c527056",
+ "model_sha256": {
+  "dt": "65cc21441b6bff8e57bf1620695a92de00871fe6c4679134fc911de92e377101",
+  "rf": "be6f4a09f430df1626f708e28296617861b1e1eb4c4d7164a4f99ba3f9fe4091",
+  "hgb": "5a6cfc63622316a1c1238462182b9561fbb97ec9aec8831663c4cfab86ec3014",
+  "rf_rule": "7b04f2bafe77cec7df83159048355f4edbb5dd23a02e60c04f95936a49ed75d4"
+ },
+ "fitted_rule_params": {
+  "fixed_rules": {
+   "rear_length_ratio_lt": 0.75,
+   "rear_area_ratio_lt": 0.8,
+   "rear_min_frames": 8,
+   "supported_head_wall_dist_lt_cm": 3.0,
+   "groom_speed_lt": 2.0,
+   "groom_area_ratio_gt": 0.6,
+   "groom_area_ratio_lt": 1.0,
+   "groom_theta_m_percentile": 50,
+   "groom_min_frames": 25
+  },
+  "tuned_rules": {
+   "rear_length_ratio_lt": 0.9,
+   "rear_area_ratio_lt": 0.9,
+   "rear_min_frames": 4,
+   "supported_head_wall_dist_lt_cm": 2.5,
+   "groom_speed_lt": 3,
+   "groom_area_ratio_gt": 0.7,
+   "groom_area_ratio_lt": 1.1,
+   "groom_theta_m_percentile": 30,
+   "groom_min_frames": 25
+  },
+  "tuned_rules_wide": {
+   "rear_length_ratio_lt": 1.1,
+   "rear_area_ratio_lt": 0.95,
+   "rear_min_frames": 4,
+   "supported_head_wall_dist_lt_cm": 0.0,
+   "groom_speed_lt": 4,
+   "groom_area_ratio_gt": 0.6,
+   "groom_area_ratio_lt": 1.1,
+   "groom_theta_m_percentile": 10,
+   "groom_min_frames": 50
+  }
+ },
+ "n_labelled": 2999,
+ "analyses": {
+  "primary": {
+   "fixed_rules": {
+    "Supported_P": NaN,
+    "Supported_R": 0.0,
+    "Supported_F1": 0.0,
+    "Unsupported_P": 1.0,
+    "Unsupported_R": 0.21818181818181817,
+    "Unsupported_F1": 0.3582089552238806,
+    "Grooming_P": NaN,
+    "Grooming_R": 0.0,
+    "Grooming_F1": 0.0,
+    "macro3": 0.11940298507462686,
+    "macro4": 0.3089732510759088,
+    "macro_SU": 0.1791044776119403,
+    "accuracy": 0.7872624208069356,
+    "cm": [
+     [
+      2289,
+      0,
+      0,
+      0
+     ],
+     [
+      312,
+      0,
+      0,
+      0
+     ],
+     [
+      258,
+      0,
+      72,
+      0
+     ],
+     [
+      68,
+      0,
+      0,
+      0
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.0,
+      0.0
+     ],
+     "Unsupported": [
+      0.08651163886532844,
+      0.5853658536585366
+     ],
+     "Grooming": [
+      0.0,
+      0.0
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 0,
+      "U": 0,
+      "G": 0
+     },
+     "STK_2": {
+      "S": 0,
+      "U": 2,
+      "G": 0
+     },
+     "STK_3": {
+      "S": 0,
+      "U": 0,
+      "G": 0
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "tuned_rules": {
+    "Supported_P": 0.0,
+    "Supported_R": 0.0,
+    "Supported_F1": 0.0,
+    "Unsupported_P": 0.35795454545454547,
+    "Unsupported_R": 0.38181818181818183,
+    "Unsupported_F1": 0.36950146627565983,
+    "Grooming_P": 0.18181818181818182,
+    "Grooming_R": 0.20588235294117646,
+    "Grooming_F1": 0.19310344827586207,
+    "macro3": 0.187534971517174,
+    "macro4": 0.35076474772972777,
+    "macro_SU": 0.18475073313782991,
+    "accuracy": 0.7255751917305768,
+    "cm": [
+     [
+      2036,
+      7,
+      183,
+      63
+     ],
+     [
+      312,
+      0,
+      0,
+      0
+     ],
+     [
+      197,
+      7,
+      126,
+      0
+     ],
+     [
+      11,
+      0,
+      43,
+      14
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.0,
+      0.0
+     ],
+     "Unsupported": [
+      0.15114157391134544,
+      0.5497009202453987
+     ],
+     "Grooming": [
+      0.0,
+      0.42962962962962964
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 0,
+      "U": 1,
+      "G": 0
+     },
+     "STK_2": {
+      "S": 1,
+      "U": 6,
+      "G": 2
+     },
+     "STK_3": {
+      "S": 1,
+      "U": 5,
+      "G": 3
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "tuned_rules_wide": {
+    "Supported_P": 1.0,
+    "Supported_R": 0.019230769230769232,
+    "Supported_F1": 0.03773584905660377,
+    "Unsupported_P": 0.24397163120567375,
+    "Unsupported_R": 0.5212121212121212,
+    "Unsupported_F1": 0.3323671497584541,
+    "Grooming_P": NaN,
+    "Grooming_R": 0.0,
+    "Grooming_F1": 0.0,
+    "macro3": 0.12336766627168595,
+    "macro4": 0.2918921469071728,
+    "macro_SU": 0.18505149940752894,
+    "accuracy": 0.667889296432144,
+    "cm": [
+     [
+      1825,
+      0,
+      464,
+      0
+     ],
+     [
+      301,
+      6,
+      5,
+      0
+     ],
+     [
+      158,
+      0,
+      172,
+      0
+     ],
+     [
+      4,
+      0,
+      64,
+      0
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.0,
+      0.12403100775193798
+     ],
+     "Unsupported": [
+      0.16737532246682785,
+      0.4777411299062337
+     ],
+     "Grooming": [
+      0.0,
+      0.0
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 0,
+      "U": 2,
+      "G": 0
+     },
+     "STK_2": {
+      "S": 0,
+      "U": 11,
+      "G": 0
+     },
+     "STK_3": {
+      "S": 1,
+      "U": 5,
+      "G": 0
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "dt": {
+    "Supported_P": 0.7425,
+    "Supported_R": 0.9519230769230769,
+    "Supported_F1": 0.8342696629213483,
+    "Unsupported_P": 0.27011494252873564,
+    "Unsupported_R": 0.5696969696969697,
+    "Unsupported_F1": 0.3664717348927875,
+    "Grooming_P": 0.12142857142857143,
+    "Grooming_R": 1.0,
+    "Grooming_F1": 0.21656050955414013,
+    "macro3": 0.4724339691227586,
+    "macro4": 0.5328772389566064,
+    "macro_SU": 0.6003706989070678,
+    "accuracy": 0.6168722907635878,
+    "cm": [
+     [
+      1297,
+      68,
+      508,
+      416
+     ],
+     [
+      15,
+      297,
+      0,
+      0
+     ],
+     [
+      31,
+      35,
+      188,
+      76
+     ],
+     [
+      0,
+      0,
+      0,
+      68
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.7210520668624351,
+      0.9058836298629437
+     ],
+     "Unsupported": [
+      0.21871708057856384,
+      0.49143277310924366
+     ],
+     "Grooming": [
+      0.05751894938365665,
+      0.36545272819415503
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 4,
+      "U": 5,
+      "G": 2
+     },
+     "STK_2": {
+      "S": 0,
+      "U": 12,
+      "G": 5
+     },
+     "STK_3": {
+      "S": 4,
+      "U": 6,
+      "G": 4
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "rf": {
+    "Supported_P": 0.8758169934640523,
+    "Supported_R": 0.8589743589743589,
+    "Supported_F1": 0.8673139158576052,
+    "Unsupported_P": 0.6480836236933798,
+    "Unsupported_R": 0.5636363636363636,
+    "Unsupported_F1": 0.6029173419773096,
+    "Grooming_P": 0.4883720930232558,
+    "Grooming_R": 0.3088235294117647,
+    "Grooming_F1": 0.3783783783783784,
+    "macro3": 0.6162032120710977,
+    "macro4": 0.6953854271100731,
+    "macro_SU": 0.7351156289174574,
+    "accuracy": 0.8819606535511837,
+    "cm": [
+     [
+      2170,
+      18,
+      101,
+      0
+     ],
+     [
+      44,
+      268,
+      0,
+      0
+     ],
+     [
+      102,
+      20,
+      186,
+      22
+     ],
+     [
+      47,
+      0,
+      0,
+      21
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.7807687165775401,
+      0.9226361031518625
+     ],
+     "Unsupported": [
+      0.4324294818836304,
+      0.7360893866706621
+     ],
+     "Grooming": [
+      0.0,
+      0.76
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 4,
+      "U": 0,
+      "G": 0
+     },
+     "STK_2": {
+      "S": 0,
+      "U": 7,
+      "G": 2
+     },
+     "STK_3": {
+      "S": 4,
+      "U": 1,
+      "G": 0
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "hgb": {
+    "Supported_P": 0.7839721254355401,
+    "Supported_R": 0.7211538461538461,
+    "Supported_F1": 0.7512520868113522,
+    "Unsupported_P": 0.54,
+    "Unsupported_R": 0.5727272727272728,
+    "Unsupported_F1": 0.5558823529411765,
+    "Grooming_P": 0.0,
+    "Grooming_R": 0.0,
+    "Grooming_F1": 0.0,
+    "macro3": 0.4357114799175095,
+    "macro4": 0.5531782268254775,
+    "macro_SU": 0.6535672198762643,
+    "accuracy": 0.8336112037345782,
+    "cm": [
+     [
+      2086,
+      36,
+      161,
+      6
+     ],
+     [
+      87,
+      225,
+      0,
+      0
+     ],
+     [
+      77,
+      26,
+      189,
+      38
+     ],
+     [
+      68,
+      0,
+      0,
+      0
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.6003344768439108,
+      0.8588622658314716
+     ],
+     "Unsupported": [
+      0.36756673978726045,
+      0.6988298163439406
+     ],
+     "Grooming": [
+      0.0,
+      0.0
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 6,
+      "U": 1,
+      "G": 0
+     },
+     "STK_2": {
+      "S": 0,
+      "U": 8,
+      "G": 1
+     },
+     "STK_3": {
+      "S": 4,
+      "U": 3,
+      "G": 0
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "rf_rule": {
+    "Supported_P": 0.7890173410404624,
+    "Supported_R": 0.875,
+    "Supported_F1": 0.8297872340425532,
+    "Unsupported_P": 0.6245353159851301,
+    "Unsupported_R": 0.509090909090909,
+    "Unsupported_F1": 0.5609348914858097,
+    "Grooming_P": 0.16417910447761194,
+    "Grooming_R": 0.16176470588235295,
+    "Grooming_F1": 0.16296296296296298,
+    "macro3": 0.5178950294971086,
+    "macro4": 0.6192072035166656,
+    "macro_SU": 0.6953610627641814,
+    "accuracy": 0.859619873291097,
+    "cm": [
+     [
+      2126,
+      44,
+      101,
+      18
+     ],
+     [
+      39,
+      273,
+      0,
+      0
+     ],
+     [
+      95,
+      29,
+      168,
+      38
+     ],
+     [
+      57,
+      0,
+      0,
+      11
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.7162802503091946,
+      0.901640104626053
+     ],
+     "Unsupported": [
+      0.38387325358210955,
+      0.6948214307270729
+     ],
+     "Grooming": [
+      0.0,
+      0.4230769230769231
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 5,
+      "U": 0,
+      "G": 0
+     },
+     "STK_2": {
+      "S": 0,
+      "U": 7,
+      "G": 3
+     },
+     "STK_3": {
+      "S": 4,
+      "U": 1,
+      "G": 0
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "_human_bouts_in_labelled_segments": {
+    "STK_1": {
+     "S": 5,
+     "U": 6,
+     "G": 1
+    },
+    "STK_2": {
+     "S": 0,
+     "U": 6,
+     "G": 1
+    },
+    "STK_3": {
+     "S": 4,
+     "U": 2,
+     "G": 1
+    }
+   }
+  },
+  "exclude_stand_and_sniff": {
+   "fixed_rules": {
+    "Supported_P": NaN,
+    "Supported_R": 0.0,
+    "Supported_F1": 0.0,
+    "Unsupported_P": 1.0,
+    "Unsupported_R": 0.21818181818181817,
+    "Unsupported_F1": 0.3582089552238806,
+    "Grooming_P": NaN,
+    "Grooming_R": 0.0,
+    "Grooming_F1": 0.0,
+    "macro3": 0.11940298507462686,
+    "macro4": 0.298380323472981,
+    "macro_SU": 0.1791044776119403,
+    "accuracy": 0.7259450171821306,
+    "cm": [
+     [
+      1618,
+      0,
+      0,
+      0
+     ],
+     [
+      312,
+      0,
+      0,
+      0
+     ],
+     [
+      258,
+      0,
+      72,
+      0
+     ],
+     [
+      68,
+      0,
+      0,
+      0
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.0,
+      0.0
+     ],
+     "Unsupported": [
+      0.05881737632291411,
+      0.577922695175547
+     ],
+     "Grooming": [
+      0.0,
+      0.0
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 0,
+      "U": 0,
+      "G": 0
+     },
+     "STK_2": {
+      "S": 0,
+      "U": 2,
+      "G": 0
+     },
+     "STK_3": {
+      "S": 0,
+      "U": 0,
+      "G": 0
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "tuned_rules": {
+    "Supported_P": 0.0,
+    "Supported_R": 0.0,
+    "Supported_F1": 0.0,
+    "Unsupported_P": 0.38650306748466257,
+    "Unsupported_R": 0.38181818181818183,
+    "Unsupported_F1": 0.38414634146341464,
+    "Grooming_P": 0.35,
+    "Grooming_R": 0.20588235294117646,
+    "Grooming_F1": 0.25925925925925924,
+    "macro3": 0.2144685335742246,
+    "macro4": 0.36107574117898594,
+    "macro_SU": 0.19207317073170732,
+    "accuracy": 0.6735395189003437,
+    "cm": [
+     [
+      1428,
+      7,
+      157,
+      26
+     ],
+     [
+      312,
+      0,
+      0,
+      0
+     ],
+     [
+      197,
+      7,
+      126,
+      0
+     ],
+     [
+      11,
+      0,
+      43,
+      14
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.0,
+      0.0
+     ],
+     "Unsupported": [
+      0.16110019646365423,
+      0.5671663611765733
+     ],
+     "Grooming": [
+      0.0,
+      0.5975935828877
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 0,
+      "U": 1,
+      "G": 0
+     },
+     "STK_2": {
+      "S": 1,
+      "U": 6,
+      "G": 2
+     },
+     "STK_3": {
+      "S": 1,
+      "U": 5,
+      "G": 3
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "tuned_rules_wide": {
+    "Supported_P": 1.0,
+    "Supported_R": 0.019230769230769232,
+    "Supported_F1": 0.03773584905660377,
+    "Unsupported_P": 0.2598187311178248,
+    "Unsupported_R": 0.5212121212121212,
+    "Unsupported_F1": 0.3467741935483871,
+    "Grooming_P": NaN,
+    "Grooming_R": 0.0,
+    "Grooming_F1": 0.0,
+    "macro3": 0.12817001420166363,
+    "macro4": 0.2787083526280628,
+    "macro_SU": 0.19225502130249544,
+    "accuracy": 0.5906357388316151,
+    "cm": [
+     [
+      1197,
+      0,
+      421,
+      0
+     ],
+     [
+      301,
+      6,
+      5,
+      0
+     ],
+     [
+      158,
+      0,
+      172,
+      0
+     ],
+     [
+      4,
+      0,
+      64,
+      0
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.0,
+      0.11170287055747057
+     ],
+     "Unsupported": [
+      0.1807295487407624,
+      0.49424926269478964
+     ],
+     "Grooming": [
+      0.0,
+      0.0
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 0,
+      "U": 2,
+      "G": 0
+     },
+     "STK_2": {
+      "S": 0,
+      "U": 11,
+      "G": 0
+     },
+     "STK_3": {
+      "S": 1,
+      "U": 5,
+      "G": 0
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "dt": {
+    "Supported_P": 0.8092643051771117,
+    "Supported_R": 0.9519230769230769,
+    "Supported_F1": 0.8748159057437408,
+    "Unsupported_P": 0.428246013667426,
+    "Unsupported_R": 0.5696969696969697,
+    "Unsupported_F1": 0.4889466840052016,
+    "Grooming_P": 0.145610278372591,
+    "Grooming_R": 1.0,
+    "Grooming_F1": 0.2542056074766355,
+    "macro3": 0.539322732408526,
+    "macro4": 0.5932312936011943,
+    "macro_SU": 0.6818812948744712,
+    "accuracy": 0.6709621993127147,
+    "cm": [
+     [
+      1009,
+      35,
+      251,
+      323
+     ],
+     [
+      15,
+      297,
+      0,
+      0
+     ],
+     [
+      31,
+      35,
+      188,
+      76
+     ],
+     [
+      0,
+      0,
+      0,
+      68
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.7761089412749338,
+      0.938375350140056
+     ],
+     "Unsupported": [
+      0.33397952531143726,
+      0.6202992576734229
+     ],
+     "Grooming": [
+      0.05472432917380312,
+      0.44000775193798436
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 4,
+      "U": 5,
+      "G": 2
+     },
+     "STK_2": {
+      "S": 0,
+      "U": 12,
+      "G": 5
+     },
+     "STK_3": {
+      "S": 4,
+      "U": 6,
+      "G": 4
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "rf": {
+    "Supported_P": 0.9023569023569024,
+    "Supported_R": 0.8589743589743589,
+    "Supported_F1": 0.8801313628899836,
+    "Unsupported_P": 0.7153846153846154,
+    "Unsupported_R": 0.5636363636363636,
+    "Unsupported_F1": 0.6305084745762712,
+    "Grooming_P": 0.4883720930232558,
+    "Grooming_R": 0.3088235294117647,
+    "Grooming_F1": 0.3783783783783784,
+    "macro3": 0.6296727386148778,
+    "macro4": 0.7016329161847089,
+    "macro_SU": 0.7553199187331274,
+    "accuracy": 0.8634020618556701,
+    "cm": [
+     [
+      1535,
+      9,
+      74,
+      0
+     ],
+     [
+      44,
+      268,
+      0,
+      0
+     ],
+     [
+      102,
+      20,
+      186,
+      22
+     ],
+     [
+      47,
+      0,
+      0,
+      21
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.7932912733577346,
+      0.9370634051356943
+     ],
+     "Unsupported": [
+      0.45698512894240273,
+      0.751339054683457
+     ],
+     "Grooming": [
+      0.0,
+      0.6942148760330579
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 4,
+      "U": 0,
+      "G": 0
+     },
+     "STK_2": {
+      "S": 0,
+      "U": 7,
+      "G": 2
+     },
+     "STK_3": {
+      "S": 4,
+      "U": 1,
+      "G": 0
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "hgb": {
+    "Supported_P": 0.8181818181818182,
+    "Supported_R": 0.7211538461538461,
+    "Supported_F1": 0.7666098807495741,
+    "Unsupported_P": 0.63,
+    "Unsupported_R": 0.5727272727272728,
+    "Unsupported_F1": 0.6,
+    "Grooming_P": 0.0,
+    "Grooming_R": 0.0,
+    "Grooming_F1": 0.0,
+    "macro3": 0.4555366269165247,
+    "macro4": 0.564124717412116,
+    "macro_SU": 0.6833049403747871,
+    "accuracy": 0.8148625429553265,
+    "cm": [
+     [
+      1483,
+      24,
+      111,
+      0
+     ],
+     [
+      87,
+      225,
+      0,
+      0
+     ],
+     [
+      77,
+      26,
+      189,
+      38
+     ],
+     [
+      68,
+      0,
+      0,
+      0
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.6310088357813108,
+      0.8660897121861605
+     ],
+     "Unsupported": [
+      0.42718446601941745,
+      0.7313711410916707
+     ],
+     "Grooming": [
+      0.0,
+      0.0
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 6,
+      "U": 1,
+      "G": 0
+     },
+     "STK_2": {
+      "S": 0,
+      "U": 8,
+      "G": 1
+     },
+     "STK_3": {
+      "S": 4,
+      "U": 3,
+      "G": 0
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "rf_rule": {
+    "Supported_P": 0.8323170731707317,
+    "Supported_R": 0.875,
+    "Supported_F1": 0.853125,
+    "Unsupported_P": 0.6614173228346457,
+    "Unsupported_R": 0.509090909090909,
+    "Unsupported_F1": 0.5753424657534246,
+    "Grooming_P": 0.1774193548387097,
+    "Grooming_R": 0.16176470588235295,
+    "Grooming_F1": 0.16923076923076924,
+    "macro3": 0.5325660783280647,
+    "macro4": 0.6254996647424143,
+    "macro_SU": 0.7142337328767123,
+    "accuracy": 0.8354810996563574,
+    "cm": [
+     [
+      1493,
+      26,
+      86,
+      13
+     ],
+     [
+      39,
+      273,
+      0,
+      0
+     ],
+     [
+      95,
+      29,
+      168,
+      38
+     ],
+     [
+      57,
+      0,
+      0,
+      11
+     ]
+    ],
+    "ci95": {
+     "Supported": [
+      0.7422196752626552,
+      0.9279282126627258
+     ],
+     "Unsupported": [
+      0.3917846284450762,
+      0.7084550389793177
+     ],
+     "Grooming": [
+      0.0,
+      0.37037037037037035
+     ]
+    },
+    "pred_bouts_in_labelled_segments": {
+     "STK_1": {
+      "S": 5,
+      "U": 0,
+      "G": 0
+     },
+     "STK_2": {
+      "S": 0,
+      "U": 7,
+      "G": 3
+     },
+     "STK_3": {
+      "S": 4,
+      "U": 1,
+      "G": 0
+     }
+    },
+    "n_pos": {
+     "Supported": 312,
+     "Unsupported": 330,
+     "Grooming": 68
+    }
+   },
+   "_human_bouts_in_labelled_segments": {
+    "STK_1": {
+     "S": 5,
+     "U": 6,
+     "G": 1
+    },
+    "STK_2": {
+     "S": 0,
+     "U": 6,
+     "G": 1
+    },
+    "STK_3": {
+     "S": 4,
+     "U": 2,
+     "G": 1
+    }
+   }
+  }
+ }
+}
