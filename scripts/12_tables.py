@@ -61,6 +61,9 @@ def main():
     put("n_scored", f"{lab['n_scored']:,}".replace(",", "{,}"))
     put("n_scored_k", f"{round(lab['n_scored'] / 1000):d}")
     put("pct_ambiguous", f"{lab['pct_ambiguous_of_nonexcluded']:.2f}")
+    gb = sorted(lab["per_video"][v]["bouts"]["Grooming"] for v in lab["per_video"])
+    put("groom_bouts_lo", str(gb[0])); put("groom_bouts_hi", str(gb[-1]))
+    put("groom_bouts_med", f"{np.median(gb):.1f}")
     pw = lab["pairwise_f1_mean"]
     put("human_S", f2(pw["Supported"])); put("human_U", f2(pw["Unsupported"])); put("human_G", f2(pw["Grooming"]))
     put("human_macro", f2(pw["macro3"]))
@@ -110,6 +113,10 @@ def main():
         hc = json.load(open(R / "human_ceiling.json"))["mean_over_references"]
         summary["human_ceiling_secondary"] = hc
         put("hum2_macro", f2(hc["human"]["macro3"]))
+        for c, short in (("Supported", "S"), ("Unsupported", "U"), ("Grooming", "G")):
+            put(f"hum2_{short}", f2(hc["human"][f"{c}_F1"]))
+            if "rf" in hc:
+                put(f"rf2_{short}", f2(hc["rf"][f"{c}_F1"]))
         if "rf" in hc:
             put("rf2_macro", f2(hc["rf"]["macro3"]))
     if (R / "bouts.json").exists():
@@ -169,6 +176,8 @@ def main():
     if (R / "cost.json").exists():
         c = json.load(open(R / "cost.json"))
         put("tracker_fps", f"{c['tracker_pass2_fps']:.0f}")
+        eth_fps = [m["pass2_fps"] for v, m in meta.items() if v.startswith("OFT") and "pass2_fps" in m]
+        put("track_fps_lo", f"{min(eth_fps):.0f}"); put("track_fps_hi", f"{max(eth_fps):.0f}")
         for m, v in c["models"].items():
             put(f"{KEY[m]}_us", f"{v['batch_us_per_frame']:.1f}")
             put(f"{KEY[m]}_lat_ms", f"{v['single_frame_latency_ms_median']:.1f}")

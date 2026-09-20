@@ -28,3 +28,25 @@ clean (the script refuses to run otherwise). It recorded the SHA-256 of every mo
 it loaded and wrote `results/stockholm/LOCK`. No feature, threshold, model or label
 mapping was changed after that run; the Stockholm numbers in the paper are from this
 single execution. A rerun would have to be disclosed here.
+
+## Final audit before submission (2026-09-20)
+An independent audit verified all 17 references against publisher records (no errors
+found) and re-read every claim against the results JSON. Six corrections were made to
+the text; none changed an experimental result:
+- The matched human reference (each rater vs the consensus of the other two) is now
+  reported. The earlier sentence compared RF-vs-consensus F1 against rater-vs-rater
+  pairwise F1 and concluded RF "matched the raters"; on the matched reference the
+  raters lead RF (0.94 vs 0.92 supported, 0.87 vs 0.77 macro).
+- "Every fold chose the edge of the pre-registered grid" overstated: only the rear
+  length-ratio grid saturated. The other three tuned thresholds sat inside their grids.
+- "Every rule variant stayed below 0.19" was contradicted by the pre-registered
+  stand-and-sniff sensitivity (tuned rules 0.21); both numbers are now given.
+- The claim that errors of both approaches concentrate in corners held only for the
+  rules. RF's residual supported/unsupported errors are higher along single walls
+  (3.7%) than in corners (1.4%); the text now says so.
+- Grooming bouts per ETH video are 1-10 (median 3.5), not the "2-7" previously stated.
+- The 139 fps tracking figure is a single process on an idle machine; the concurrent
+  batch run gives 44-63 fps per process. Both are now reported.
+One audit finding was checked and rejected: "one CPU core" is supported, because
+`src/rr/track.py` calls `cv2.setNumThreads(1)` and `scripts/09_cost.py` sets
+`n_jobs=1` on every model before timing it.
