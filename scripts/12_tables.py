@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from rr.stats import bootstrap_ci, holm, paired_wilcoxon  # noqa: E402
 
+import yaml
+CFG_WINDOWS = yaml.safe_load(open(ROOT / "config/prereg.yaml"))["features"]["windows_frames"]
 R = ROOT / "results"
 GEN = ROOT / "paper/generated"
 METHODS = ["fixed_rules", "tuned_rules", "tuned_rules_wide", "dt", "rf", "hgb", "rf_rule"]
@@ -100,9 +102,6 @@ def main():
         ci = bootstrap_ci(d, np.mean, 10000, 0)
         summary["gapU_minus_gapS"] = {"mean": float(np.nanmean(d)), "ci95": ci}
         put("gapUS_mean", f2(np.nanmean(d))); put("gapUS_lo", f2(ci[0])); put("gapUS_hi", f2(ci[1]))
-        for m in ("rf", "tuned_rules"):
-            for k, short in CLS[:3]:
-                pass
         put("gap_S", f2(np.nanmean(gS))); put("gap_U", f2(np.nanmean(gU)))
         gG = vec(res, "rf", "Grooming_F1") - vec(res, "tuned_rules", "Grooming_F1")
         put("gap_G", f2(np.nanmean(gG)))
@@ -184,6 +183,9 @@ def main():
                 for b_, v in e[m]["head_wall_dist"].items():
                     key = {"<0": "neg", "0-2": "zto", "2-4": "twf", "4-8": "fte", ">=8": "gte"}[b_]
                     put(f"su_{KEY[m]}_hw{key}", f"{100 * v['rate']:.0f}")
+    if "rf" in res and "rf_rule" in res:
+        put("gapRFrule", f2(np.nanmean(vec(res, "rf", "macro3")) - np.nanmean(vec(res, "rf_rule", "macro3"))))
+    put("lag_s", f"{max(CFG_WINDOWS) / 25:.0f}")
     # ---------------- diagnostics (post-hoc) ----------------
     if (R / "diagnostics.json").exists():
         dg = json.load(open(R / "diagnostics.json"))

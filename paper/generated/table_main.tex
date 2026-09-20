@@ -1,0 +1,14 @@
+\begin{table*}[t]\centering\caption{Leave-one-video-out results on ETH (frame F1, mean$\pm$SD over 20 folds), bout-count correlation with the raters' median (Pearson $r$, mean over the three behaviors), classifier cost per frame (batch, one core, excluding tracking and features), and macro F1 on the external Stockholm set. $^\dagger$Post-hoc, not pre-registered.}\label{tab:main}
+\footnotesize\begin{tabular}{lccccccc}\toprule
+Method & Supported & Unsupported & Grooming & Macro F1 & Bout $r$ & $\mu$s/frame & Stockholm\\\midrule
+Rules (fixed) & .03$\pm$.04 & .03$\pm$.04 & .02$\pm$.09 & .03$\pm$.03 & .32 & -- & -- \\
+Rules (tuned) & .19$\pm$.09 & .14$\pm$.08 & .07$\pm$.09 & .14$\pm$.05 & .19 & -- & -- \\
+Rules (tuned, wide)$^\dagger$ & .48$\pm$.06 & .23$\pm$.11 & .08$\pm$.12 & .26$\pm$.06 & .27 & -- & -- \\
+\midrule
+Decision tree & .81$\pm$.05 & .47$\pm$.15 & .34$\pm$.15 & .54$\pm$.09 & .45 & -- & -- \\
+Random forest & .89$\pm$.03 & .61$\pm$.13 & .61$\pm$.24 & .70$\pm$.11 & .65 & -- & -- \\
+Gradient boosting & .89$\pm$.03 & .66$\pm$.13 & .66$\pm$.22 & .74$\pm$.10 & .65 & -- & -- \\
+RF, rule inputs & .87$\pm$.03 & .60$\pm$.14 & .62$\pm$.24 & .70$\pm$.11 & .70 & -- & -- \\
+\midrule
+Human (pairwise) & .89 & .75 & .73 & .79 & .88 & -- & -- \\
+\bottomrule\end{tabular}\end{table*}

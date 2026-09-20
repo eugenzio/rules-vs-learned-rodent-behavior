@@ -14,15 +14,13 @@ def paired_wilcoxon(a, b):
     n = int(m.sum())
     nz = d[d != 0]
     if len(nz) == 0:
-        return {"n": n, "median_diff": 0.0, "p": 1.0, "rank_biserial": 0.0}
-    method = "exact" if len(nz) == len(d) and n <= 50 else "approx"
+        return {"n": n, "n_nonzero": int(len(nz)), "median_diff": 0.0, "p": 1.0, "rank_biserial": 0.0}
+    method = "exact" if len(nz) <= 50 else "approx"   # zeros are dropped by zero_method="wilcox"
     res = wilcoxon(a[m], b[m], alternative="two-sided", method=method, zero_method="wilcox")
-    ranks = np.argsort(np.argsort(np.abs(nz))) + 1.0
-    # average ranks for ties in |d|
     from scipy.stats import rankdata
-    ranks = rankdata(np.abs(nz))
+    ranks = rankdata(np.abs(nz))   # average ranks for ties in |d|
     wp, wm = ranks[nz > 0].sum(), ranks[nz < 0].sum()
-    return {"n": n, "median_diff": float(np.median(d)), "mean_diff": float(np.mean(d)), "p": float(res.pvalue),
+    return {"n": n, "n_nonzero": int(len(nz)), "median_diff": float(np.median(d)), "mean_diff": float(np.mean(d)), "p": float(res.pvalue),
             "rank_biserial": float((wp - wm) / (wp + wm)), "method": method}
 
 

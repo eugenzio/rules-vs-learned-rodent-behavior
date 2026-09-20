@@ -33,7 +33,8 @@ def main():
         lab = pd.read_parquet(ROOT / f"data/interim/labels/{v}.parquet").set_index("frame")
         tr = pd.read_parquet(ROOT / f"data/interim/track/{v}.parquet").set_index("frame")
         d = pd.DataFrame({"gt": lab["gt"], "wall_dist": raw["wall_dist"], "head_wall_dist": raw["head_wall_dist"],
-                          "cx": tr["cx"].reindex(raw.index), "cy": tr["cy"].reindex(raw.index)}, index=raw.index)
+                          "cx": tr["cx"].reindex(raw.index).ffill(limit=12),
+                          "cy": tr["cy"].reindex(raw.index).ffill(limit=12)}, index=raw.index)
         for m in METHODS:
             d[m] = np.load(ROOT / f"data/interim/preds/{m}/{v}.npy")
         rows.append(d.assign(vid=v))
@@ -41,7 +42,9 @@ def main():
     D = D[D["gt"] >= 0]
     near_x = (D.cx < 8) | (D.cx > side - 8)
     near_y = (D.cy < 8) | (D.cy > side - 8)
-    D["zone"] = np.where(near_x & near_y, "corner", np.where(near_x | near_y, "side", "centre"))
+    untracked = D["cx"].isna() | D["cy"].isna()
+    D["zone"] = np.where(untracked, "untracked",
+                         np.where(near_x & near_y, "corner", np.where(near_x | near_y, "side", "centre")))
     out = {"confusion": {m: confusion(D["gt"].to_numpy(), D[m].to_numpy()).tolist() for m in METHODS},
            "su_confusion": {}}
     su = D[D["gt"].isin([1, 2])]

@@ -6,10 +6,12 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{url}
+\usepackage[T1]{fontenc}
+\renewcommand{\ttdefault}{lmtt}  % Courier metrics not installed; Latin Modern typewriter
 \graphicspath{{figs/}}
 % every number in the text comes from results/*.json via generated/numbers.tex
 \makeatletter
-\newcommand{\num}[1]{\ifcsname num@#1\endcsname\csname num@#1\endcsname\else\errmessage{Undefined number key #1}\fi}
+\newcommand{\num}[1]{\ifcsname num@#1\endcsname\csname num@#1\endcsname\else\ifdefined\draftnums\textbf{??}\else\errmessage{Undefined number key #1}\fi\fi}
 \makeatother
 \input{generated/numbers.tex}
 
@@ -42,8 +44,13 @@ Our contributions are: (i) a controlled comparison of fixed and tuned threshold 
 
 \emph{Positioning.} We do not compete with these systems~\cite{anderson2014}. We hold the input fixed at what a CPU silhouette tracker produces and ask whether replacing its rules with a small learned model is worth it.
 
+\begin{figure*}[t]\centering
+\includegraphics[width=\textwidth]{fig1_pipeline.pdf}
+\caption{Pipeline. Frames are rectified to a metric top-down canvas; MOG2 gives a silhouette, from which 14 features (including a contour head proxy, red) are computed; window statistics feed either threshold rules or a learned classifier, with identical post-processing. Crops show consensus examples from one video.}\label{fig:pipeline}
+\end{figure*}
+
 \section{Data}
-\emph{A. Primary set (ETH).} We use the 20 open-field videos of Sturman \emph{et al.}~\cite{sturman2020} (Zenodo 10.5281/zenodo.3608658): one C57BL/6 mouse per 10-min top-down recording, 928$\times$576 px at 25~fps. Three trained raters independently annotated supported rears, unsupported rears, and grooming as onset/offset times (DLCAnalyzer repository, label file at commit \texttt{d6f9532}). We converted each rater's bouts to frames ($[\mathrm{round}(25t_\mathrm{on}), \mathrm{round}(25t_\mathrm{off}))$), kept only frames inside the trial markers of all three raters, and excluded frames any rater marked as jumping or as a tool placeholder. A rater who assigned two behaviors to the same frame abstained on it. Ground truth is the class chosen by at least two raters; the \num{pct_ambiguous}\% of frames without such a majority were excluded (treating them as ``other,'' as initially planned, is reported as a sensitivity analysis). This leaves \num{n_scored} scored frames (Table~\ref{tab:data}).
+\emph{A. Primary set (ETH).} We use the 20 open-field videos of Sturman \emph{et al.}~\cite{sturman2020} (Zenodo 10.5281/zenodo.3608658): one C57BL/6 mouse per 10-min top-down recording, 928$\times$576 px at 25~fps. Three trained raters independently annotated supported rears, unsupported rears, and grooming as onset/offset times (DLCAnalyzer repository, label file at commit \texttt{d6f9532}). We converted each rater's bouts to frames ($[\mathrm{round}(25t_\mathrm{on}), \mathrm{round}(25t_\mathrm{off}))$), kept only frames inside the trial markers of every rater who set them (one rater lacked an end marker on two videos), and excluded frames any rater marked as jumping or as a tool placeholder. A rater who assigned two behaviors to the same frame abstained on it. Ground truth is the class chosen by at least two raters; the \num{pct_ambiguous}\% of frames without such a majority were excluded (treating them as ``other,'' as initially planned, is reported as a sensitivity analysis). This leaves \num{n_scored} scored frames (Table~\ref{tab:data}).
 
 \emph{B. External set (Stockholm).} The dataset of Mlost \emph{et al.}~\cite{mlost2025} (Zenodo 10.5281/zenodo.14382973) was recorded in another laboratory with a different camera (650$\times$600 px, 25~fps, 40$\times$40~cm white arena). Three experts labeled \num{stk_n_labelled} frames from three mice with ten classes by consensus; we mapped supported rear, unsupported rear, and groom to our classes and the other seven to ``other,'' as fixed before the test. We matched the label files to videos without using labels, through frame counts and the mutual information between the deposited unsupervised cluster sequences and the pose tracks. Grooming is rare in this set (\num{stk_n_groom} frames).
 
@@ -52,7 +59,7 @@ Our contributions are: (i) a controlled comparison of fixed and tuned threshold 
 \section{Method}
 \emph{A. Tracker.} Each frame is warped by a homography onto a top-down canvas of 10~px/cm (ETH: the four arena reference points tracked in the original study, spanning 42$\times$42~cm; Stockholm: floor corners detected automatically on the background image). A MOG2 background model~\cite{zivkovic2004} (history 500, variance threshold 16, shadows removed) is first trained on every 50th in-trial frame and then applied with a frozen background, so that a motionless animal is not absorbed; we then apply a 21$\times$21 Gaussian blur before subtraction, morphological closing, and take the largest contour. The head end of the fitted ellipse is chosen by recent movement direction. Tracking covered $\geq$\num{coverage_min}\% of frames in every video, and its centroid agreed with the original study's pose estimate to a median of \num{align_err_eth}~cm at zero lag.
 
-\emph{B. Features.} Fourteen per-frame features, all in cm, cm/s, or within-video ratios: speed and acceleration ($\pm$2-frame differences), area and ellipse major axis relative to the video median, aspect ratio, axis angular speed, solidity, signed centroid-to-wall distance, and motion energy (mean frame difference inside the bounding box, relative to the video median); plus a contour \emph{head proxy} replacing keypoints, which a CPU rodent pose model does not provide: head extent, head-to-wall distance, minimum contour-to-wall distance, head jitter ($\pm$5 frames), and segmentation purity. Learned models additionally see the mean, SD, min, and max of each feature in centred windows of $\pm$5, 12, and 25 frames (0.2--1~s): 182 inputs.
+\emph{B. Features.} Fourteen per-frame features, all in cm, cm/s, or within-video ratios: speed and acceleration ($\pm$2-frame differences), area and ellipse major axis relative to the video median, aspect ratio, axis angular speed, solidity, signed centroid-to-wall distance, and motion energy (mean frame difference inside the bounding box, relative to the video median); plus a contour \emph{head proxy} replacing keypoints, which a CPU rodent pose model does not provide: head extent, head-to-wall distance, minimum contour-to-wall distance, head jitter ($\pm$5 frames), and segmentation purity. Learned models additionally see the mean, SD, min, and max of each feature in centred windows of $\pm$5, 12, and 25 frames (0.2--1~s), giving 183 inputs (182 features and a missing-data flag).
 
 \emph{C. Rules.} The \emph{fixed} rules were written before seeing data: rear if body-length ratio $<$0.75 and area ratio $<$0.8 for $\geq$8 frames, supported if the head is within 3~cm of a wall; groom if speed $<$2~cm/s, 0.6$<$area ratio$<$1.0, and motion energy above the video's median for slow frames, for $\geq$25 frames. \emph{Tuned} rules search the same thresholds on the training videos only (staged grid, macro-F1 objective). After seeing the grid saturate, we added a post-hoc \emph{wide} grid (rear thresholds up to 1.10), reported separately.
 
@@ -64,6 +71,7 @@ Our contributions are: (i) a controlled comparison of fixed and tuned threshold 
 
 \section{Results}
 \input{generated/table_main.tex}
+\input{generated/table_data.tex}
 
 \emph{A. Animal shift (LOVO).} Table~\ref{tab:main} and Fig.~\ref{fig:lovo} summarize the 20 folds. The fixed rules almost never fired (macro F1 \num{fixed_macro}). The reason is visible in the features: from a top-down camera a rearing mouse barely shortens, so the median body-length ratio was \num{diag_blr_S} (supported) and \num{diag_blr_U} (unsupported), and only \num{diag_rearcond_S}\% and \num{diag_rearcond_U}\% of rearing frames met the rule's condition, whereas \num{diag_rearcond_G}\% of grooming frames did, since grooming is the most compact posture (\num{diag_blr_G}). Tuning helped little: every fold chose the edge of the pre-registered grid (length ratio $<$\num{tuned_tauL} in \num{tuned_nceilL}/20 folds), for a macro F1 of \num{tuned_macro}, and even the post-hoc wide grid, which also settled on its edge (\num{wide_tauL}), reached only \num{wide_macro}. The head-to-wall distance, in contrast, separated the two rear types well (median \num{diag_hw_S}~cm vs.\ \num{diag_hw_U}~cm).
 
@@ -74,19 +82,29 @@ All learned models were far better. RF reached a macro F1 of \num{rf_macro}$\pm$
 \caption{Per-behavior frame F1 over the 20 LOVO folds (dots: individual videos). Orange: threshold rules (hatched: post-hoc wide grid); blue: learned models; aqua: RF restricted to the rules' five inputs. Dashed line: mean pairwise F1 between the three human raters.}\label{fig:lovo}
 \end{figure*}
 
-\emph{B. Lab shift.} STOCKHOLM
+\emph{B. Lab shift.} Every method was retrained or re-tuned on all 20 ETH videos and applied once to the \num{stk_n_labelled} labelled Stockholm frames (Fig.~\ref{fig:shift}a). %% H2-SENTENCE: written after the one-shot run, must match the signs of delta_rf / delta_tuned
+RF moved from \num{rf_macro} to \num{stk_rf_macro} (\num{delta_rf}), GBM from \num{gbm_macro} to \num{stk_gbm_macro} (\num{delta_gbm}), and the tuned rules from \num{tuned_macro} to \num{stk_tuned_macro} (\num{delta_tuned}). Supported rearing transferred best (RF \num{stk_rf_S}, 95\% CI [\num{stk_rf_S_lo}, \num{stk_rf_S_hi}]), unsupported rearing less well (\num{stk_rf_U} [\num{stk_rf_U_lo}, \num{stk_rf_U_hi}]), and grooming, with only \num{stk_n_groom} positive frames, is not estimable with useful precision (\num{stk_rf_G} [\num{stk_rf_G_lo}, \num{stk_rf_G_hi}]); the two-behavior macro F1 is therefore the more informative summary (RF \num{stk_rf_macroSU}). Excluding the ``stand and sniff'' frames, which the source dataset groups with rearing, changes RF to \num{stkx_rf_macro}. With three videos and one consensus annotation these numbers are descriptive only.
 
-\emph{C. Ablations.} ABLATIONS
+\begin{figure*}[t]\centering
+\includegraphics[width=\textwidth]{fig3_shift_ablation.pdf}
+\caption{(a) Macro F1 on ETH (filled) and on the external Stockholm set (open). (b) RF with the raw features plus a single window of the given half-width; the star marks the three pre-registered windows. (c) RF by feature source; $^\ddagger$DeepLabCut features come from the original study (GPU-trained), shown as a reference.}\label{fig:shift}
+\end{figure*}
+
+\emph{C. Ablations.} Temporal context mattered: RF on the raw features alone (no windows) scored \num{abrfwindow0}, one $\pm$0.2~s window raised it to \num{abrfwindow5}, and the three pre-registered windows gave \num{rf_macro} (Fig.~\ref{fig:shift}b). Feature source did not: replacing the five contour head-proxy features by the original study's DeepLabCut pose features changed the macro F1 from \num{rf_macro} to \num{abrfsourcedlcreference}, and dropping them entirely (nine silhouette features) gave \num{abrfsourcesilhouetteonly} (Fig.~\ref{fig:shift}c). Both label sensitivity analyses left the picture unchanged (RF \num{abrfgtambother} with ambiguous frames counted as ``other''\/ and \num{abrfgtdrop1s} without the 1-s placeholder bouts; tuned rules \num{abtunedrulesgtambother} and \num{abtunedrulesgtdrop1s}).
 
 \emph{D. Compute.} COMPUTE
 
-\emph{E. Error analysis.} ERRORS
+\emph{E. Error analysis.} Pooled over folds, the rules confused the two rear types mainly where the wall geometry is ambiguous: for the tuned rules the supported/unsupported error rate among rear frames was \num{su_tuned_corner}\% in corners (within 8~cm of two walls) against \num{su_tuned_side}\% along a single wall and \num{su_tuned_centre}\% in the centre, and it peaked when the head sat 0--4~cm from a wall (\num{su_tuned_hwzto}--\num{su_tuned_hwtwf}\%). RF reduced the same corner error to \num{su_rf_corner}\%.
 
 \section{Discussion and Limitations}
-DISCUSSION
+Three conclusions follow. First, the intuition behind silhouette rules---``rearing shortens the animal''---does not survive a top-down camera: rearing changed the silhouette far less than grooming did, so thresholds written from that intuition fired almost never, and tuning them inside or even outside the pre-registered range did not repair them. Second, the deficit is not a lack of information. An RF restricted to the five features the rules use recovered \num{rfrule_macro} macro F1, within \num{gapRFrule} of the full RF, so what the rules lack is the ability to combine those same features flexibly rather than through fixed conjunctive cuts. Third, the rules were not uniformly bad: the head-to-wall distance separated supported from unsupported rears cleanly, which is exactly the geometric quantity a rule can express, and it is also where the remaining errors of both approaches concentrate (corners).
+
+For a laboratory without a GPU, the practical reading is that a few minutes of CPU training on public labels buys a large, reliable improvement over hand-set thresholds at a cost of \num{rf_us}~$\mu$s per frame, while keeping the pipeline interpretable enough to audit. What the learned models did not buy was human-level agreement on the rarer behaviours: unsupported rearing and grooming remained clearly below the human ceiling.
+
+Limitations. One species, one strain, and a single top-down view. Only three behaviors, and no freezing. Grooming is rare (\num{stk_n_groom} labelled frames in the external set, and 2--7 bouts per ETH video), so its estimates are noisy. Our ground truth converts bout on/offsets to frames, which blurs bout edges. The external set has one consensus annotation rather than independent raters, and its label catalog is not identical to ours, so the mapping of the seven remaining classes to ``other'' is a judgement call that we fixed before the test and also report with ``stand and sniff'' excluded. Rectification is exact only on the floor plane, so a rearing body is displaced outward; that is a property of every single-camera top-down setup, not of this tracker alone. Finally, the windows are centred, so an online system would run \num{lag_s}~s behind.
 
 \section{Conclusion}
-CONCLUSION
+On identical low-dimensional CPU features, replacing threshold rules with a small learned classifier changed macro F1 from \num{tuned_macro} to \num{rf_macro} (RF) and \num{gbm_macro} (GBM), against a human pairwise ceiling of \num{human_macro}, and the whole pipeline still runs faster than real time on a laptop CPU. The gap comes from how the rules combine their features, not from what they can see. For resource-limited laboratories that already run a silhouette tracker, training a forest on public labels is a cheap and auditable upgrade; for rearing in particular, a rule written from the top-down ``shrinking silhouette'' intuition should not be trusted without validation.
 
 \section*{Data, Code, and Ethics Statement}
 No new animal experiments were performed. Videos come from two public CC-BY-4.0 Zenodo records (10.5281/zenodo.3608658; 10.5281/zenodo.14382973); ETH labels and pose files come from the GPL-3.0 DLCAnalyzer repository at pinned commits and are linked, not redistributed. Code, the pre-registration, per-frame features, and predictions are released at \url{https://github.com/eugenzio/rules-vs-learned-rodent-behavior}.
