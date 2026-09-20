@@ -1,0 +1,53 @@
+{
+ "machine": {
+  "cpu": "Apple M4",
+  "cores": "10",
+  "python": "3.12.12",
+  "gpu_used": false
+ },
+ "video": "OFT_5",
+ "resolution": "928x576",
+ "canvas_px": 580,
+ "tracker_pass2_us_per_frame": 7217.087055634086,
+ "tracker_pass2_fps": 138.56005785870917,
+ "tracker_3000frame_window_total_s": 22.453386791050434,
+ "pass1_setup_s_per_3000_frames": 0.8021256241481751,
+ "raw_features_us_per_frame": 0.7108215896491645,
+ "windowing_us_per_frame": 2.3394277793428566,
+ "postprocess_us_per_frame": 0.06687404179510929,
+ "fixed_rules_us_per_frame": 0.08167168964765259,
+ "models": {
+  "dt": {
+   "batch_us_per_frame": 0.17959536532367246,
+   "single_frame_latency_ms_median": 0.020707957446575165,
+   "size_mb": 0.007717,
+   "n_features": 183
+  },
+  "rf": {
+   "batch_us_per_frame": 32.02295729517185,
+   "single_frame_latency_ms_median": 13.171958446037024,
+   "size_mb": 55.770133,
+   "n_features": 183
+  },
+  "hgb": {
+   "batch_us_per_frame": 8.161606120851289,
+   "single_frame_latency_ms_median": 15.144520497415215,
+   "size_mb": 1.5538,
+   "n_features": 183
+  },
+  "rf_rule": {
+   "batch_us_per_frame": 17.499313515967362,
+   "single_frame_latency_ms_median": 6.205020996276289,
+   "size_mb": 62.858276,
+   "n_features": 66
+  }
+ },
+ "end_to_end_fps": {
+  "dt": 138.49679341756124,
+  "rf": 137.8886762921585,
+  "hgb": 138.34385665045215,
+  "rf_rule": 138.1653726251475,
+  "rules": 138.54484453824742
+ },
+ "note": "single process; end-to-end = tracker pass 2 + features + model + post-processing; centred +-1 s windows imply 1 s output latency; background pre-training (pass 1) is a per-video setup step"
+}
