@@ -1,0 +1,719 @@
+{
+ "features": {
+  "OFT_11": {
+   "frames": [
+    94,
+    14967
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 928443
+  },
+  "OFT_12": {
+   "frames": [
+    84,
+    14982
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 912214
+  },
+  "OFT_14": {
+   "frames": [
+    70,
+    14980
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 922939
+  },
+  "OFT_15": {
+   "frames": [
+    78,
+    14976
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 935575
+  },
+  "OFT_16": {
+   "frames": [
+    74,
+    14966
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 940107
+  },
+  "OFT_23": {
+   "frames": [
+    67,
+    14958
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 908962
+  },
+  "OFT_24": {
+   "frames": [
+    73,
+    14938
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 937899
+  },
+  "OFT_38": {
+   "frames": [
+    83,
+    14967
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 949686
+  },
+  "OFT_39": {
+   "frames": [
+    78,
+    14965
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 924012
+  },
+  "OFT_41": {
+   "frames": [
+    86,
+    14997
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 922183
+  },
+  "OFT_43": {
+   "frames": [
+    72,
+    14974
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 932764
+  },
+  "OFT_44": {
+   "frames": [
+    128,
+    14966
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 932033
+  },
+  "OFT_49": {
+   "frames": [
+    100,
+    14959
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 929022
+  },
+  "OFT_5": {
+   "frames": [
+    101,
+    14971
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 938802
+  },
+  "OFT_50": {
+   "frames": [
+    67,
+    14966
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 936791
+  },
+  "OFT_51": {
+   "frames": [
+    77,
+    14973
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 940961
+  },
+  "OFT_52": {
+   "frames": [
+    82,
+    14981
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 917162
+  },
+  "OFT_54": {
+   "frames": [
+    70,
+    14973
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 908107
+  },
+  "OFT_58": {
+   "frames": [
+    73,
+    14959
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 935030
+  },
+  "OFT_6": {
+   "frames": [
+    90,
+    14963
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 918382
+  },
+  "STK_1": {
+   "frames": [
+    0,
+    14991
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 882425
+  },
+  "STK_2": {
+   "frames": [
+    0,
+    14519
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 849237
+  },
+  "STK_3": {
+   "frames": [
+    0,
+    14518
+   ],
+   "columns": [
+    "speed",
+    "accel",
+    "area_ratio",
+    "body_length_ratio",
+    "aspect",
+    "ang_speed",
+    "solidity",
+    "wall_dist",
+    "motion_energy",
+    "head_ratio",
+    "d_wall_min",
+    "head_jitter",
+    "seg_quality",
+    "head_wall_dist",
+    "missing"
+   ],
+   "bytes": 854733
+  }
+ },
+ "predictions": {
+  "dt": [
+   "OFT_11",
+   "OFT_12",
+   "OFT_14",
+   "OFT_15",
+   "OFT_16",
+   "OFT_23",
+   "OFT_24",
+   "OFT_38",
+   "OFT_39",
+   "OFT_41",
+   "OFT_43",
+   "OFT_44",
+   "OFT_49",
+   "OFT_5",
+   "OFT_50",
+   "OFT_51",
+   "OFT_52",
+   "OFT_54",
+   "OFT_58",
+   "OFT_6"
+  ],
+  "fixed_rules": [
+   "OFT_11",
+   "OFT_12",
+   "OFT_14",
+   "OFT_15",
+   "OFT_16",
+   "OFT_23",
+   "OFT_24",
+   "OFT_38",
+   "OFT_39",
+   "OFT_41",
+   "OFT_43",
+   "OFT_44",
+   "OFT_49",
+   "OFT_5",
+   "OFT_50",
+   "OFT_51",
+   "OFT_52",
+   "OFT_54",
+   "OFT_58",
+   "OFT_6"
+  ],
+  "hgb": [
+   "OFT_11",
+   "OFT_12",
+   "OFT_14",
+   "OFT_15",
+   "OFT_16",
+   "OFT_23",
+   "OFT_24",
+   "OFT_38",
+   "OFT_39",
+   "OFT_41",
+   "OFT_43",
+   "OFT_44",
+   "OFT_49",
+   "OFT_5",
+   "OFT_50",
+   "OFT_51",
+   "OFT_52",
+   "OFT_54",
+   "OFT_58",
+   "OFT_6"
+  ],
+  "rf": [
+   "OFT_11",
+   "OFT_12",
+   "OFT_14",
+   "OFT_15",
+   "OFT_16",
+   "OFT_23",
+   "OFT_24",
+   "OFT_38",
+   "OFT_39",
+   "OFT_41",
+   "OFT_43",
+   "OFT_44",
+   "OFT_49",
+   "OFT_5",
+   "OFT_50",
+   "OFT_51",
+   "OFT_52",
+   "OFT_54",
+   "OFT_58",
+   "OFT_6"
+  ],
+  "rf_rule": [
+   "OFT_11",
+   "OFT_12",
+   "OFT_14",
+   "OFT_15",
+   "OFT_16",
+   "OFT_23",
+   "OFT_24",
+   "OFT_38",
+   "OFT_39",
+   "OFT_41",
+   "OFT_43",
+   "OFT_44",
+   "OFT_49",
+   "OFT_5",
+   "OFT_50",
+   "OFT_51",
+   "OFT_52",
+   "OFT_54",
+   "OFT_58",
+   "OFT_6"
+  ],
+  "tuned_rules": [
+   "OFT_11",
+   "OFT_12",
+   "OFT_14",
+   "OFT_15",
+   "OFT_16",
+   "OFT_23",
+   "OFT_24",
+   "OFT_38",
+   "OFT_39",
+   "OFT_41",
+   "OFT_43",
+   "OFT_44",
+   "OFT_49",
+   "OFT_5",
+   "OFT_50",
+   "OFT_51",
+   "OFT_52",
+   "OFT_54",
+   "OFT_58",
+   "OFT_6"
+  ],
+  "tuned_rules_wide": [
+   "OFT_11",
+   "OFT_12",
+   "OFT_14",
+   "OFT_15",
+   "OFT_16",
+   "OFT_23",
+   "OFT_24",
+   "OFT_38",
+   "OFT_39",
+   "OFT_41",
+   "OFT_43",
+   "OFT_44",
+   "OFT_49",
+   "OFT_5",
+   "OFT_50",
+   "OFT_51",
+   "OFT_52",
+   "OFT_54",
+   "OFT_58",
+   "OFT_6"
+  ]
+ },
+ "codes": {
+  "0": "Other",
+  "1": "Supported rear",
+  "2": "Unsupported rear",
+  "3": "Grooming"
+ },
+ "frame_index": "0-based video frame; predictions cover the trial window in results/track_meta.json"
+}
